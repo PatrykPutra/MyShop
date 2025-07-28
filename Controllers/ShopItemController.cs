@@ -12,91 +12,75 @@ namespace MyShop.Controllers
     [Route("api/[controller]")]
     public class ShopItemController : ControllerBase
     {
-        private readonly MyShopDbContext _dbContext;
-        private readonly ExchangeRatesServices _exchangeRatesServices;
+        private readonly IShopItemServices _services;
         
-        public ShopItemController(MyShopDbContext dbContext)
+        public ShopItemController(IShopItemServices services)
         {
-            _dbContext = dbContext;
-            _exchangeRatesServices = new(dbContext);
+            _services = services;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct([FromBody] ShopItemPostDto shopItemDto)
+        public async Task<IActionResult> AddProduct([FromBody] CreateShopItemDto shopItemDto)
         {
-            if (shopItemDto == null)  return BadRequest("Invalid product data"); 
-
-            ItemCategory? category = await _dbContext.ItemCategories.FindAsync(shopItemDto.CategoryId);
-            if (category == null)  return BadRequest("Invalid product category");
-
-            ShopItem shopItem = new ShopItem
+            try
             {
-                Name = shopItemDto.Name,
-                Text = shopItemDto.Text,
-                PriceUSD = shopItemDto.Price,
-                Quantity = shopItemDto.Quantity,
-                Category = category,
-                CategoryId = category.Id
-            };
+                var result = await _services.CreateAsync(shopItemDto);
+                return Created($"api/ShopItem/{result}",null);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             
-            _dbContext.ShopItems.Add(shopItem);
-            await _dbContext.SaveChangesAsync();
-            
-            return CreatedAtAction("AddProduct",new {id = shopItem.Id},shopItem);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetItemByIdAsync(int id,[FromQuery]string currencyName)
         {
-            ShopItem? shopItem = await _dbContext.ShopItems.Include(shopItem=>shopItem.Category).FirstOrDefaultAsync(shopItem=>shopItem.Id==id);
-            decimal exchangeRate;
-            if (shopItem == null) return NotFound();
             try
             {
-                exchangeRate = await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
+                var result = await _services.GetByIdAsync(id, currencyName);
+                return Ok(result);
             }
-            catch (ArgumentException)
+            catch(ArgumentOutOfRangeException ex)
             {
-                return NotFound();
+                return NotFound(ex.Message);
             }
-            ShopItemGetDto shopItemDto = new()
+            catch (ArgumentException ex)
             {
-                Name = shopItem.Name,
-                Text = shopItem.Text,
-                Price = shopItem.PriceUSD * exchangeRate,
-                PriceCurrency = currencyName,
-                CategoryId = shopItem.CategoryId,
-                Quantity = shopItem.Quantity,
-            };
+                return BadRequest(ex.Message);
+            }
             
-
-            return Ok(shopItemDto);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] ShopItemPostDto updatedShopItem)
+        public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] CreateShopItemDto updatedShopItem)
         {
-            
-            ShopItem? existingShopItem = await _dbContext.ShopItems.FindAsync(id);
-            if(existingShopItem == null) return NotFound();
-            ItemCategory? category = await _dbContext.ItemCategories.FindAsync(updatedShopItem.CategoryId);
-            if (category == null) return BadRequest("Invalid product category");
-            
-            existingShopItem.Name = updatedShopItem.Name;
-            existingShopItem.Text = updatedShopItem.Text;
-            existingShopItem.PriceUSD = updatedShopItem.Price;
-            existingShopItem.CategoryId = updatedShopItem.CategoryId;
-            existingShopItem.Quantity = updatedShopItem.Quantity;
-
-            _dbContext.SaveChanges();
-            return NoContent();
+            try
+            {
+                await _services.UpdateAsync(id, updatedShopItem);
+                return NoContent();
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItemAsync(int id)
         {
-            ShopItem? shopItem = await _dbContext.ShopItems.FindAsync(id);
-            if (shopItem == null) return NotFound();
-            _dbContext.ShopItems.Remove(shopItem);
-            await _dbContext.SaveChangesAsync();
-            return NoContent();
+            try
+            {
+                await _services.DeleteAsync(id);
+                return NoContent();
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+           
         }
 
     }

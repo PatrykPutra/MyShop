@@ -6,7 +6,7 @@ using MyShop.Models;
 
 namespace MyShop.Services
 {
-    public class ExchangeRatesServices
+    public class ExchangeRatesServices : IExchangeRatesServices
     {
         private readonly MyShopDbContext _dbContext;
         private readonly CurrencyExchangeRatesClient _exchangeRatesClient = new();
@@ -23,7 +23,7 @@ namespace MyShop.Services
 
             foreach (var key in exchangeRatesKeys)
             {
-                ExchangeRate? exchangeRate = await _dbContext.ExchangeRates.FirstOrDefaultAsync(exchangeRate => exchangeRate.Name == key);
+                ExchangeRate? exchangeRate =  _dbContext.ExchangeRates.FirstOrDefault(exchangeRate => exchangeRate.Name == key);
                 if (exchangeRate == null)
                 {
                     exchangeRate = new ExchangeRate()
@@ -40,7 +40,7 @@ namespace MyShop.Services
                     exchangeRate.Updated = DateTime.Today;
                 }
             }
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
         public async Task<decimal> GetExchangeRateAsync(string currencyName)
         {
@@ -48,7 +48,7 @@ namespace MyShop.Services
 
             ExchangeRate? exchangeRate = await _dbContext.ExchangeRates.FirstOrDefaultAsync(exchangeRate => exchangeRate.Name == currencyName);
 
-            if (exchangeRate == null) throw new ArgumentException("Given currecy name is not supported");
+            if (exchangeRate == null) throw new ArgumentException($"Currecy name: {currencyName} is not supported");
             if (exchangeRate.Updated < DateTime.Today) await UpdateExchangeRatesAsync();
             return exchangeRate.Rate;
         }

@@ -1,6 +1,6 @@
 ﻿namespace MyShop.Models
 {
-    public class OrderDto
+    public class CreateOrderDto
     {
         public required List<OrderItemDto> Items { get; set; }
     }

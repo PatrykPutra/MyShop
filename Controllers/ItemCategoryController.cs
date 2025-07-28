@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
 using MyShop.Models;
+using MyShop.Services;
 
 
 namespace MyShop.Controllers
@@ -11,65 +12,66 @@ namespace MyShop.Controllers
     [Route("api/[controller]")]
     public class ItemCategoryController : ControllerBase
     {
-        private readonly MyShopDbContext _dbContext;
-        private readonly IMapper _mapper;
-        public ItemCategoryController(IMapper mapper,MyShopDbContext dbContext)
+        private readonly IItemCategoryServices _services;
+        public ItemCategoryController(IItemCategoryServices services)
         {
-            _dbContext = dbContext;
-            _mapper = mapper;
+            _services = services;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
-            List<ItemCategory> categories = await _dbContext.ItemCategories.ToListAsync();
+            var categories = _services.GetAll();
             return Ok(categories);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public IActionResult Get(int id)
         {
-            ItemCategory? category = await _dbContext.ItemCategories.Include(category => category.ShopItems).FirstOrDefaultAsync(category=> category.Id == id);
-            if (category == null) return NotFound();
-
-            return Ok(_mapper.Map<ItemCategoryDto>(category));
+            try
+            {
+                var categoryDto = _services.GetById(id);
+                return Ok(categoryDto);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] ItemCategoryDto newItemCategoryDto)
+        public IActionResult Add([FromBody] CreateItemCategoryDto newItemCategoryDto)
         {
-            ItemCategory newItemCategory = _mapper.Map<ItemCategory>(newItemCategoryDto);
-            _dbContext.ItemCategories.Add(newItemCategory);
-            await _dbContext.SaveChangesAsync();
-            return CreatedAtAction(nameof(Add), newItemCategory);
+            var result = _services.Create(newItemCategoryDto);
+            return Created($"api/ItemCategory/{result}",null);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ItemCategoryDto itemCategoryDto)
+        public IActionResult Update(int id, [FromBody] CreateItemCategoryDto itemCategoryDto)
         {
-            ItemCategory? itemCategory = await _dbContext.ItemCategories.FindAsync(id);
-            if (itemCategory == null) return NotFound();
-            if (itemCategory.Id == 1) return BadRequest("Category Other cannot be removed");
-            itemCategory.Name = itemCategoryDto.Name;
-            await _dbContext.SaveChangesAsync();
-            return Ok(itemCategory);
-        }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            ItemCategory? category = await _dbContext.ItemCategories
-                .Include(category=>category.ShopItems)
-                .FirstOrDefaultAsync(category=>category.Id==id);
-            if (category == null) return NotFound();
-            if (category.Id == 1) return BadRequest("Category Other cannot be removed");
-            foreach (var item in category.ShopItems)
+            try
             {
-                item.CategoryId = 1;
+                _services.Update(id, itemCategoryDto);
+                return Ok();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             
-            _dbContext.ItemCategories.Remove(category);
-            await _dbContext.SaveChangesAsync();
-            return Ok();
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _services.Delete(id);
+                return Ok();
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         
     }

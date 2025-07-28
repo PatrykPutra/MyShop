@@ -7,7 +7,9 @@ namespace MyShop.Helpers
     {
         public MappingProfile()
         {
-            CreateMap<ItemCategory,ItemCategoryDto>();
+            CreateMap<ItemCategory,CreateItemCategoryDto>();
+            CreateMap<CreateItemCategoryDto, ItemCategory>();
+            CreateMap<ItemCategory, ItemCategoryDto>();
             CreateMap<ItemCategoryDto, ItemCategory>();
         }
     }

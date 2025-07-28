@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using AutoMapper;
 using MyShop.Data;
+using MyShop.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,11 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddScoped<IItemCategoryServices, ItemCategoryServices>();
+builder.Services.AddScoped<IExchangeRatesServices, ExchangeRatesServices>();
+builder.Services.AddScoped<IShopItemServices, ShopItemServices>();
+builder.Services.AddScoped<IOrderServices, OrderServices>();
+builder.Services.AddScoped<ISummaryServices, SummaryServices>();
 
 var app = builder.Build();
 

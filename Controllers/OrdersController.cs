@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyShop.Data;
 using MyShop.Models;
+using MyShop.Services;
 
 namespace MyShop.Controllers
 {
@@ -8,44 +9,27 @@ namespace MyShop.Controllers
     [Route("api/[controller]")]
     public class OrdersController : ControllerBase
     {
-        private readonly MyShopDbContext _dbContext;
-        public OrdersController(MyShopDbContext dbContext)
+        private readonly IOrderServices _services;
+        public OrdersController(IOrderServices services)
         {
-            _dbContext = dbContext;
+            _services=services;
         }
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] OrderDto newOrderDto)
+        public async Task<IActionResult> Add([FromBody] CreateOrderDto newOrderDto)
         {
-            if (newOrderDto == null || newOrderDto.Items.Count == 0) return BadRequest("Item list is empty");
-
-            List<OrderItem> orderItems = new List<OrderItem>();
-            decimal totalPriceUSD = 0;
-
-            foreach (var item in newOrderDto.Items)
+            try
             {
-                ShopItem? shopItem = await _dbContext.ShopItems.FindAsync(item.ShopItemId);
-                if (shopItem == null) return BadRequest($"Shop item no. {item.ShopItemId} does not exist");
-                OrderItem orderItem = new OrderItem
-                {
-                    Name = shopItem.Name,
-                    ShopItemId = shopItem.Id,
-                    PriceUSD = shopItem.PriceUSD,
-                };
-                orderItems.Add(orderItem);
-                totalPriceUSD += shopItem.PriceUSD;
-                shopItem.Quantity--;
-                if (shopItem.Quantity <= 0) return BadRequest($"Not enough {shopItem.Name} in shop storage.");
+                await _services.AddAsync(newOrderDto);
+                return Ok();
             }
-
-            Order newOrder = new Order
+            catch(ArgumentOutOfRangeException ex)
             {
-                CreationDate = DateTime.Now,
-                Items = orderItems,
-                TotalPriceUSD = totalPriceUSD
-            };
-            _dbContext.Orders.Add(newOrder);
-            await _dbContext.SaveChangesAsync();
-            return Ok(newOrder.Id);
+                return BadRequest(ex.Message);
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

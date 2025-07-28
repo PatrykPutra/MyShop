@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
 using MyShop.Models;
+using MyShop.Services;
 
 namespace MyShop.Controllers
 {
@@ -9,27 +10,17 @@ namespace MyShop.Controllers
     [Route("api/[controller]")]
     public class SummaryController : ControllerBase
     {
-        private readonly MyShopDbContext _dbContext;
-        public SummaryController(MyShopDbContext dbContext)
+        private readonly ISummaryServices _services;
+        public SummaryController(ISummaryServices services)
         {
-            _dbContext = dbContext;
+            _services = services;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetSummary()
         {
-            int numberOfProducts = await _dbContext.ShopItems.CountAsync();
-            int numberOfOrders = await _dbContext.Orders.CountAsync();
-            int allProductsQuantity = await _dbContext.ShopItems.Select(shopItem => shopItem.Quantity).SumAsync();
-            decimal allOrdersTotalPriceUSD = await _dbContext.Orders.Select(order=>order.TotalPriceUSD).SumAsync();
-            Summary summary = new()
-            {
-                NumberOfProducts = numberOfProducts,
-                NumberOfOrders = numberOfOrders,
-                AllProductsQuantity = allProductsQuantity,
-                AllOrdersTotalPriceUSD = allOrdersTotalPriceUSD
-            };
-            return Ok(summary);
+            var result = await _services.GetAsync();
+            return Ok(result);
         }
         
     }

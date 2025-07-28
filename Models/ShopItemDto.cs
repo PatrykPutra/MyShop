@@ -1,6 +1,6 @@
 ﻿namespace MyShop.Models
 {
-    public class ShopItemGetDto
+    public class ShopItemDto
     {
         public required string Name { get; set; }
         public required string Text { get; set; }

@@ -1,8 +1,7 @@
 ﻿namespace MyShop.Models
 {
-    public class ItemCategoryDto
+    public class CreateItemCategoryDto
     {
-        public int Id { get; init; }
         public required string Name { get; set; }
     }
 }
