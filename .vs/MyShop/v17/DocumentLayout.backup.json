@@ -1,0 +1,143 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\controllers\\itemcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:controllers\\itemcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\data\\myshopdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:data\\myshopdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\data\\imyshopdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:data\\imyshopdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\models\\exchangerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:models\\exchangerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\models\\shopitempostdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:models\\shopitempostdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\helpers\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:helpers\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IMyShopDbContext.cs",
+              "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Data\\IMyShopDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\IMyShopDbContext.cs",
+              "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Data\\IMyShopDbContext.cs",
+              "RelativeToolTip": "Data\\IMyShopDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T08:12:37.543Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MyShopDbContext.cs",
+              "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Data\\MyShopDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\MyShopDbContext.cs",
+              "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Data\\MyShopDbContext.cs*",
+              "RelativeToolTip": "Data\\MyShopDbContext.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T08:06:29.238Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ItemCategoryController.cs",
+              "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\ItemCategoryController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ItemCategoryController.cs",
+              "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\ItemCategoryController.cs*",
+              "RelativeToolTip": "Controllers\\ItemCategoryController.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T13:46:11.733Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MappingProfile.cs",
+              "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Helpers\\MappingProfile.cs",
+              "RelativeDocumentMoniker": "Helpers\\MappingProfile.cs",
+              "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Helpers\\MappingProfile.cs",
+              "RelativeToolTip": "Helpers\\MappingProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T13:45:37.913Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ShopItemPostDto.cs",
+              "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Models\\ShopItemPostDto.cs",
+              "RelativeDocumentMoniker": "Models\\ShopItemPostDto.cs",
+              "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Models\\ShopItemPostDto.cs",
+              "RelativeToolTip": "Models\\ShopItemPostDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T13:43:26.226Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ExchangeRate.cs",
+              "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Models\\ExchangeRate.cs",
+              "RelativeDocumentMoniker": "Models\\ExchangeRate.cs",
+              "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Models\\ExchangeRate.cs",
+              "RelativeToolTip": "Models\\ExchangeRate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T09:28:14.843Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Program.cs*",
+              "RelativeToolTip": "Program.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-20T08:25:29.645Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
