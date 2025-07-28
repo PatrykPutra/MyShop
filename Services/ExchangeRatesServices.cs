@@ -9,10 +9,11 @@ namespace MyShop.Services
     public class ExchangeRatesServices : IExchangeRatesServices
     {
         private readonly MyShopDbContext _dbContext;
-        private readonly CurrencyExchangeRatesClient _exchangeRatesClient = new();
-        public ExchangeRatesServices(MyShopDbContext dbContext)
+        private readonly ICurrencyExchangeRatesClient _exchangeRatesClient;
+        public ExchangeRatesServices(MyShopDbContext dbContext, ICurrencyExchangeRatesClient exchangeRatesClient)
         {
             _dbContext = dbContext;
+            _exchangeRatesClient = exchangeRatesClient;
         }
 
         private async Task UpdateExchangeRatesAsync()

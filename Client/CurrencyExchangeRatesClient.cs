@@ -3,16 +3,18 @@ using System.Text.Json;
 
 namespace MyShop.Client
 {
-    public class CurrencyExchangeRatesClient
+    public class CurrencyExchangeRatesClient : ICurrencyExchangeRatesClient
     {
         private readonly HttpClient _httpClient = new HttpClient();
-        private string _apiKey = "b10b189b0bbc43698ede82a25efa8079";
-        private string _connectionString = "https://openexchangerates.org/api/latest.json?app_id=b10b189b0bbc43698ede82a25efa8079"; //move to appsettings
-
-        public async Task<Dictionary<string,decimal>> GetExchangeRatesAsync()
+        private readonly IConfiguration _configuration;
+        public CurrencyExchangeRatesClient(IConfiguration configuration)
         {
-            var response = await _httpClient.GetAsync(_connectionString);
-            response.EnsureSuccessStatusCode(); 
+            _configuration = configuration;
+        }
+        public async Task<Dictionary<string, decimal>> GetExchangeRatesAsync()
+        {
+            var response = await _httpClient.GetAsync(_configuration.GetConnectionString("exchangeRates"));
+            response.EnsureSuccessStatusCode();
 
             var responseBody = await response.Content.ReadAsStringAsync();
             var exchangeRates = JsonSerializer.Deserialize<ExchangeRatesRoot>(responseBody);
@@ -20,7 +22,7 @@ namespace MyShop.Client
             return exchangeRates.rates;
         }
 
-        
+
 
     }
 }

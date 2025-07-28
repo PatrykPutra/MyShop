@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using AutoMapper;
 using MyShop.Data;
 using MyShop.Services;
+using MyShop.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,7 @@ builder.Services.AddScoped<IExchangeRatesServices, ExchangeRatesServices>();
 builder.Services.AddScoped<IShopItemServices, ShopItemServices>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
 builder.Services.AddScoped<ISummaryServices, SummaryServices>();
+builder.Services.AddScoped<ICurrencyExchangeRatesClient, CurrencyExchangeRatesClient>();
 
 var app = builder.Build();
 
