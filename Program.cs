@@ -8,6 +8,7 @@ using MyShop.Services;
 using MyShop.Client;
 using Microsoft.AspNetCore.Identity;
 using MyShop.Models;
+using MyShop.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,7 @@ builder.Services.AddScoped<IUserAuthorizationServices, UserAuthorizationServices
 builder.Services.AddScoped<ILoginServices, LoginServices>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ITokenServices, TokenServices>();
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 
 var app = builder.Build();
@@ -48,7 +50,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.Run();
 

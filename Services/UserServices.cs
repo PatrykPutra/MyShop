@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
+using MyShop.Exceptions;
 using MyShop.Models;
 using System.Security.Authentication;
 
@@ -23,7 +24,7 @@ namespace MyShop.Services
 
         public async Task CreateAsync(CreateUserDto userDto)
         {
-            if (userDto == null) throw new ArgumentNullException(nameof(userDto));
+            if (userDto == null) throw new ArgumentException("Invalid request parameter");
             if (_dbContext.Users.Any(user => user.UserName == userDto.UserName)) throw new ArgumentException($"User name: {userDto.UserName} already exists.");
             
             ShoppingCart newCart = new ShoppingCart();
@@ -44,11 +45,11 @@ namespace MyShop.Services
         public async Task<User> GetAsync(string token)
         {
             int userId = _tokenServices.GetId(token);
-            if (!await _userAuthorizationServices.IsAuthorized(token, userId)) throw new InvalidCredentialException();
+            if (!await _userAuthorizationServices.IsAuthorized(token, userId)) throw new UnauthorizedRequestException("Unauthorized request");
             User? user = await _dbContext.Users
                .Include(user => user.Cart)
                .FirstOrDefaultAsync(user => user.Id == userId);
-            if (user == null) throw new ArgumentException("User not found.");
+            if (user == null) throw new NotFoundException("User not found.");
 
             return user;
         }

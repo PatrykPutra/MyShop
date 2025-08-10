@@ -17,19 +17,10 @@ namespace MyShop.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateOrderDto newOrderDto)
         {
-            try
-            {
-                await _services.AddAsync(newOrderDto);
-                return Ok();
-            }
-            catch(ArgumentOutOfRangeException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch(ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            
+            await _services.AddAsync(newOrderDto);
+            return Ok();
+           
         }
     }
 }

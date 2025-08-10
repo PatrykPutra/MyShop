@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
+using MyShop.Exceptions;
 using MyShop.Models;
 using System.Security.Authentication;
 
@@ -22,19 +23,9 @@ namespace MyShop.Services
         }
         public async Task<int> CreateAsync(CreateShopItemDto newItemDto)
         {
-            try
-            {
-                User user = await _userServices.GetAsync(newItemDto.Token);
-                if (user.IsAdmin == false) throw new InvalidOperationException("Unauthorized user request.");
-            }
-            catch (InvalidCredentialException ex)
-            {
-                throw new InvalidCredentialException(ex.Message);
-            }
-            catch(ArgumentException ex)
-            {
-                throw new ArgumentException(ex.Message);
-            }
+            User user = await _userServices.GetAsync(newItemDto.Token);
+            if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request.");
+            
 
             ItemCategory? category = await _dbContext.ItemCategories.FindAsync(newItemDto.CategoryId);
             if (category == null) throw new ArgumentException($"Category no. {newItemDto.CategoryId} does not exist.");
@@ -58,16 +49,10 @@ namespace MyShop.Services
         {
             ShopItem? shopItem = _dbContext.ShopItems.Include(shopItem => shopItem.Category).FirstOrDefault(shopItem => shopItem.Id == id);
             decimal exchangeRate;
-            if (shopItem == null) throw new ArgumentOutOfRangeException($"ShopItem with Id = {id} does not exist.");
-            try
-            {
-                exchangeRate = await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new ArgumentException("Can not find exchangeRate parameter", ex);
-            }
-
+            if (shopItem == null) throw new NotFoundException($"ShopItem with Id = {id} does not exist.");
+            
+            exchangeRate = await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
+           
             ShopItemDto shopItemDto = new()
             {
                 Name = shopItem.Name,
@@ -82,14 +67,9 @@ namespace MyShop.Services
         public async Task<List<ShopItemDto>> GetByCategoryAsync(int categoryId,string currencyName)
         {
             decimal exchangeRate;
-            try
-            {
-                exchangeRate = await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new ArgumentException("Can not find exchangeRate parameter", ex);
-            }
+         
+            exchangeRate = await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
+           
             List<ShopItem> shopItems = await _dbContext.ShopItems.Include(shopItem => shopItem.Category).Where(shopItem => shopItem.CategoryId == categoryId).ToListAsync();
             List<ShopItemDto> shopItemsDtos = shopItems.Select(shopItem => new ShopItemDto()
             {
@@ -106,14 +86,9 @@ namespace MyShop.Services
         public async Task<List<ShopItemDto>> GetAllAsync(string currencyName)
         {
             decimal exchangeRate;
-            try
-            {
-                exchangeRate = await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new ArgumentException("Can not find exchangeRate parameter", ex);
-            }
+            
+            exchangeRate = await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
+          
             List<ShopItem> shopItems = await _dbContext.ShopItems.Include(shopItem => shopItem.Category).Where(shopItem=>shopItem!=null).ToListAsync();
             List<ShopItemDto> shopItemsDtos = shopItems.Select(shopItem => new ShopItemDto()
             {
@@ -129,21 +104,12 @@ namespace MyShop.Services
 
         public async Task UpdateAsync(int id, CreateShopItemDto updatedShopItem)
         {
-            try
-            {
-                User user = await _userServices.GetAsync(updatedShopItem.Token);
-                if (user.IsAdmin == false) throw new InvalidOperationException("Unauthorized user request.");
-            }
-            catch (InvalidCredentialException ex)
-            {
-                throw new InvalidCredentialException(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new ArgumentException(ex.Message);
-            }
+           
+            User user = await _userServices.GetAsync(updatedShopItem.Token);
+            if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request.");
+         
             ShopItem? existingShopItem = await _dbContext.ShopItems.FindAsync(id);
-            if (existingShopItem == null) throw new ArgumentOutOfRangeException($"ShopItem with Id: {id} does not exist.");
+            if (existingShopItem == null) throw new NotFoundException($"ShopItem with Id: {id} does not exist.");
             ItemCategory? category = await _dbContext.ItemCategories.FindAsync(updatedShopItem.CategoryId);
             if (category == null) throw new ArgumentException($"ItemCategory with Id: {updatedShopItem.CategoryId} does not exist.");
 
@@ -157,21 +123,12 @@ namespace MyShop.Services
         }
         public async Task DeleteAsync(int id,string token)
         {
-            try
-            {
-                User user = await _userServices.GetAsync(token);
-                if (user.IsAdmin == false) throw new InvalidOperationException("Unauthorized user request.");
-            }
-            catch (InvalidCredentialException ex)
-            {
-                throw new InvalidCredentialException(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new ArgumentException(ex.Message);
-            }
+           
+            User user = await _userServices.GetAsync(token);
+            if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request.");
+            
             ShopItem? shopItem = await _dbContext.ShopItems.FindAsync(id);
-            if (shopItem == null) throw new ArgumentOutOfRangeException($"ShopItem with Id: {id} does not exist.");
+            if (shopItem == null) throw new NotFoundException($"ShopItem with Id: {id} does not exist.");
             _dbContext.ShopItems.Remove(shopItem);
             await _dbContext.SaveChangesAsync();
         }

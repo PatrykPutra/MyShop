@@ -20,36 +20,18 @@ namespace MyShop.Controllers
         [HttpPost("AddItem")]
         public async Task<IActionResult> AddItemAsync(ShoppingCartItemDto shoppingCartItemDto)
         {
-            try
-            {
-                await _shoppingCartServices.AddItemAsync(shoppingCartItemDto);
-                return Ok();
-            }
-            catch (InvalidCredentialException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            
+            await _shoppingCartServices.AddItemAsync(shoppingCartItemDto);
+            return Ok();
+            
         }
         [HttpPut("RemoveItem")]
         public async Task<IActionResult> RemoveItemAsync(ShoppingCartItemDto shoppingCartItemDto)
         {
-            try
-            {
-                await _shoppingCartServices.RemoveItemAsync(shoppingCartItemDto);
-                return Ok();
-            }
-            catch (InvalidCredentialException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            
+            await _shoppingCartServices.RemoveItemAsync(shoppingCartItemDto);
+            return Ok();
+            
         }
 
     }

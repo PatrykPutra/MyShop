@@ -20,7 +20,7 @@ namespace MyShop.Services
         
         public async Task AddAsync(CreateOrderDto newOrderDto)
         {
-            if (newOrderDto == null) throw new ArgumentNullException(nameof(newOrderDto));
+            if (newOrderDto == null) throw new ArgumentException("Invalid request parameter.");
             User user = await _userServices.GetAsync(newOrderDto.Token);
 
             List<int> orderItemsIds = new List<int>(user.Cart.ShopItemsIds);
@@ -32,7 +32,7 @@ namespace MyShop.Services
             foreach (var itemId in orderItemsIds)
             {
                 ShopItem? shopItem = await _dbContext.ShopItems.FindAsync(itemId);
-                if (shopItem == null) throw new ArgumentOutOfRangeException($"Shop item no. {itemId} does not exist");
+                if (shopItem == null) throw new ArgumentException($"Shop item no. {itemId} does not exist");
 
                 OrderItem orderItem = new OrderItem
                 {
@@ -44,7 +44,7 @@ namespace MyShop.Services
                 orderItems.Add(orderItem);
                 totalPriceUSD += shopItem.PriceUSD;
                 shopItem.Quantity--; // move to ShopItemServices
-                if (shopItem.Quantity <= 0) throw new ArgumentOutOfRangeException($"Not enough {shopItem.Name} in shop storage.");
+                if (shopItem.Quantity <= 0) throw new ArgumentException($"Not enough {shopItem.Name} in shop storage.");
             }
             
             Order newOrder = new Order

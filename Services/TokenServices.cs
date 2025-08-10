@@ -27,7 +27,7 @@ namespace MyShop.Services
         public int GetId(string token)
         {
             if (int.TryParse(token.Substring(20, token.Length-20), out int id)) return id;
-            throw new ArgumentException($"Unable to read token");
+            throw new ArgumentException($"Unable to read authorization token");
         }
     }
 }

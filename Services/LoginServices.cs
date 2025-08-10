@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MyShop.Data;
+using MyShop.Exceptions;
 using MyShop.Models;
 
 namespace MyShop.Services
@@ -18,7 +19,7 @@ namespace MyShop.Services
         public async Task<string> Login(CredentialsDto credentials)
         {
             User? user = _dbContext.Users.FirstOrDefault(user => user.UserName == credentials.Username);
-            if (user == null) throw new ArgumentException();
+            if (user == null) throw new ArgumentException("Login or password not correct.");
             if (_passwordHasher.VerifyHashedPassword(user, user.PasswordHash, credentials.Password) == PasswordVerificationResult.Success)
             {
                 string tokenBody = _tokenServices.Generate(user.Id);
@@ -40,7 +41,7 @@ namespace MyShop.Services
                 _dbContext.SaveChanges();
                 return tokenBody;
             }
-            throw new ArgumentException();
+            throw new ArgumentException("Login or password not correct.");
 
         }
         

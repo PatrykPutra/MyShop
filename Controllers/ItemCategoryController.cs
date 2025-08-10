@@ -28,15 +28,10 @@ namespace MyShop.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            try
-            {
-                var categoryDto = await _services.GetByIdAsync(id);
-                return Ok(categoryDto);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                return NotFound(ex.Message);
-            }
+           
+            var categoryDto = await _services.GetByIdAsync(id);
+            return Ok(categoryDto);
+           
         }
 
         [HttpPost]
@@ -49,29 +44,18 @@ namespace MyShop.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] CreateItemCategoryDto itemCategoryDto)
         {
-            try
-            {
-                await _services.UpdateAsync(id, itemCategoryDto);
-                return Ok();
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
             
+            await _services.UpdateAsync(id, itemCategoryDto);
+            return Ok();
+  
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id, [FromBody] string token)
         {
-            try
-            {
-                await _services.DeleteAsync(id,token);
-                return Ok();
-            }
-            catch(ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            
+            await _services.DeleteAsync(id,token);
+            return Ok();
+          
         }
         
     }

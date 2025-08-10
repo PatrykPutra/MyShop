@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
+using MyShop.Exceptions;
 using MyShop.Models;
 using System.Security.Authentication;
 
@@ -29,25 +30,16 @@ namespace MyShop.Services
             ItemCategory? category = await _dbContext.ItemCategories
                 .Include(category => category.ShopItems)
                 .FirstOrDefaultAsync(category => category.Id == id);
-            if (category == null) throw new ArgumentOutOfRangeException($"ItemCategory no. {id} does not exist.");
+            if (category == null) throw new ArgumentException($"ItemCategory no. {id} does not exist.");
             ItemCategoryDto categoryDto = _mapper.Map<ItemCategoryDto>(category);
             return categoryDto;
         }
         public async Task<int> CreateAsync(CreateItemCategoryDto itemCategoryDto)
         {
-            try
-            {
-                User user = await _userServices.GetAsync(itemCategoryDto.Token);
-                if (user.IsAdmin == false) throw new InvalidOperationException("Unauthorized request");
-            }
-            catch (InvalidCredentialException ex)
-            {
-                throw new InvalidCredentialException(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new ArgumentException(ex.Message);
-            }
+            
+            User user = await _userServices.GetAsync(itemCategoryDto.Token);
+            if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request");
+           
                    
             ItemCategory itemCategory = _mapper.Map<ItemCategory>(itemCategoryDto);
             _dbContext.ItemCategories.Add(itemCategory);
@@ -56,42 +48,24 @@ namespace MyShop.Services
         }
         public async Task UpdateAsync(int id, CreateItemCategoryDto itemCategoryDto)
         {
-            try
-            {
-                User user = await _userServices.GetAsync(itemCategoryDto.Token);
-                if (user.IsAdmin == false) throw new InvalidOperationException("Unauthorized request");
-            }
-            catch (InvalidCredentialException ex)
-            {
-                throw new InvalidCredentialException(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new ArgumentException(ex.Message);
-            }
+          
+            User user = await _userServices.GetAsync(itemCategoryDto.Token);
+            if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request");
+          
             ItemCategory? itemCategory = _dbContext.ItemCategories.Find(id);
-            if (itemCategory == null) throw new ArgumentException("Item category not found");
+            if (itemCategory == null) throw new NotFoundException("Item category not found");
             if (itemCategory.Id == 1) throw new ArgumentException("Category Other cannot be changed");
             itemCategory.Name = itemCategoryDto.Name;
             await _dbContext.SaveChangesAsync();
         }
         public async Task DeleteAsync(int id,string token)
         {
-            try
-            {
-                User user = await _userServices.GetAsync(token);
-                if (user.IsAdmin == false) throw new InvalidOperationException("Unauthorized request");
-            }
-            catch (InvalidCredentialException ex)
-            {
-                throw new InvalidCredentialException(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new ArgumentException(ex.Message);
-            }
+            
+            User user = await _userServices.GetAsync(token);
+            if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request");
+            
             ItemCategory? itemCategory = _dbContext.ItemCategories.Find(id);
-            if (itemCategory == null) throw new ArgumentException("Item category not found");
+            if (itemCategory == null) throw new NotFoundException("Item category not found");
             if (itemCategory.Id == 1) throw new ArgumentException("Category Other cannot be removed");
             _dbContext.ItemCategories.Remove(itemCategory);
             await _dbContext.SaveChangesAsync();

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyShop.Client;
 using MyShop.Data;
+using MyShop.Exceptions;
 using MyShop.Models;
 
 namespace MyShop.Services
@@ -49,7 +50,7 @@ namespace MyShop.Services
 
             ExchangeRate? exchangeRate = await _dbContext.ExchangeRates.FirstOrDefaultAsync(exchangeRate => exchangeRate.Name == currencyName);
 
-            if (exchangeRate == null) throw new ArgumentException($"Currecy name: {currencyName} is not supported");
+            if (exchangeRate == null) throw new NotFoundException($"Currecy name: {currencyName} not found");
             if (exchangeRate.Updated < DateTime.Today) await UpdateExchangeRatesAsync();
             return exchangeRate.Rate;
         }
