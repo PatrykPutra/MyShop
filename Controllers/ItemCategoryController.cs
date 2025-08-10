@@ -19,18 +19,18 @@ namespace MyShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var categories = _services.GetAll();
+            var categories = await _services.GetAllAsync();
             return Ok(categories);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             try
             {
-                var categoryDto = _services.GetById(id);
+                var categoryDto = await _services.GetByIdAsync(id);
                 return Ok(categoryDto);
             }
             catch (ArgumentOutOfRangeException ex)
@@ -40,18 +40,18 @@ namespace MyShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody] CreateItemCategoryDto newItemCategoryDto)
+        public async Task<IActionResult> Add([FromBody] CreateItemCategoryDto newItemCategoryDto)
         {
-            var result = _services.Create(newItemCategoryDto);
+            var result = await _services.CreateAsync(newItemCategoryDto);
             return Created($"api/ItemCategory/{result}",null);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] CreateItemCategoryDto itemCategoryDto)
+        public async Task<IActionResult> Update(int id, [FromBody] CreateItemCategoryDto itemCategoryDto)
         {
             try
             {
-                _services.Update(id, itemCategoryDto);
+                await _services.UpdateAsync(id, itemCategoryDto);
                 return Ok();
             }
             catch (ArgumentException ex)
@@ -61,11 +61,11 @@ namespace MyShop.Controllers
             
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id, [FromBody] string token)
         {
             try
             {
-                _services.Delete(id);
+                await _services.DeleteAsync(id,token);
                 return Ok();
             }
             catch(ArgumentException ex)

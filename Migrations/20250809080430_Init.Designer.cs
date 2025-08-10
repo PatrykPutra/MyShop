@@ -7,13 +7,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyShop.Data;
 
-
 #nullable disable
 
 namespace MyShop.Migrations
 {
     [DbContext(typeof(MyShopDbContext))]
-    [Migration("20250725104502_Init")]
+    [Migration("20250809080430_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -26,7 +25,7 @@ namespace MyShop.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MyShop.Entities.ExchangeRate", b =>
+            modelBuilder.Entity("MyShop.Models.ExchangeRate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +48,7 @@ namespace MyShop.Migrations
                     b.ToTable("ExchangeRates");
                 });
 
-            modelBuilder.Entity("MyShop.Entities.ItemCategory", b =>
+            modelBuilder.Entity("MyShop.Models.ItemCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,7 +72,7 @@ namespace MyShop.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MyShop.Entities.Order", b =>
+            modelBuilder.Entity("MyShop.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,12 +86,17 @@ namespace MyShop.Migrations
                     b.Property<decimal>("TotalPriceUSD")
                         .HasColumnType("decimal(7,2)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("MyShop.Entities.OrderItem", b =>
+            modelBuilder.Entity("MyShop.Models.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,7 +124,7 @@ namespace MyShop.Migrations
                     b.ToTable("OrderItem");
                 });
 
-            modelBuilder.Entity("MyShop.Entities.ShopItem", b =>
+            modelBuilder.Entity("MyShop.Models.ShopItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -152,16 +156,108 @@ namespace MyShop.Migrations
                     b.ToTable("ShopItems");
                 });
 
-            modelBuilder.Entity("MyShop.Entities.OrderItem", b =>
+            modelBuilder.Entity("MyShop.Models.ShoppingCart", b =>
                 {
-                    b.HasOne("MyShop.Entities.Order", null)
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.PrimitiveCollection<string>("ShopItemsIds")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("MyShop.Models.Token", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Tokens");
+                });
+
+            modelBuilder.Entity("MyShop.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TokenId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("MyShop.Models.Order", b =>
+                {
+                    b.HasOne("MyShop.Models.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyShop.Models.OrderItem", b =>
+                {
+                    b.HasOne("MyShop.Models.Order", null)
                         .WithMany("Items")
                         .HasForeignKey("OrderId");
                 });
 
-            modelBuilder.Entity("MyShop.Entities.ShopItem", b =>
+            modelBuilder.Entity("MyShop.Models.ShopItem", b =>
                 {
-                    b.HasOne("MyShop.Entities.ItemCategory", "Category")
+                    b.HasOne("MyShop.Models.ItemCategory", "Category")
                         .WithMany("ShopItems")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -170,14 +266,46 @@ namespace MyShop.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("MyShop.Entities.ItemCategory", b =>
+            modelBuilder.Entity("MyShop.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("MyShop.Models.User", "User")
+                        .WithOne("Cart")
+                        .HasForeignKey("MyShop.Models.ShoppingCart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyShop.Models.Token", b =>
+                {
+                    b.HasOne("MyShop.Models.User", "User")
+                        .WithOne("Token")
+                        .HasForeignKey("MyShop.Models.Token", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyShop.Models.ItemCategory", b =>
                 {
                     b.Navigation("ShopItems");
                 });
 
-            modelBuilder.Entity("MyShop.Entities.Order", b =>
+            modelBuilder.Entity("MyShop.Models.Order", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("MyShop.Models.User", b =>
+                {
+                    b.Navigation("Cart")
+                        .IsRequired();
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Token");
                 });
 #pragma warning restore 612, 618
         }

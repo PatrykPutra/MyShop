@@ -8,5 +8,8 @@ namespace MyShop.Models
         public DateTime CreationDate { get; set; }
         public required List<OrderItem> Items { get; set; }
         public decimal TotalPriceUSD { get; set; }
+
+        public required User User { get; set; }
+        public int UserId { get; set; }
     }
 }

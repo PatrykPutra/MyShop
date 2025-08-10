@@ -51,6 +51,33 @@ namespace MyShop.Controllers
             }
             
         }
+        [HttpGet("ByCategory")]
+        public async Task<IActionResult> GetItemsByCategoryAsync(int categoryId, [FromQuery] string currencyName)
+        {
+            try
+            {
+                var result = await _services.GetByCategoryAsync(categoryId, currencyName);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("All")]
+        public async Task<IActionResult> GetItemsByCategoryAsync([FromQuery] string currencyName)
+        {
+            try
+            {
+                var result = await _services.GetAllAsync(currencyName);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] CreateShopItemDto updatedShopItem)
         {
@@ -68,12 +95,13 @@ namespace MyShop.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItemAsync(int id)
+        public async Task<IActionResult> DeleteItemAsync(int id,[FromBody]string token)
         {
             try
             {
-                await _services.DeleteAsync(id);
+                await _services.DeleteAsync(id,token);
                 return NoContent();
             }
             catch(ArgumentOutOfRangeException ex)

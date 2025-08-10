@@ -2,6 +2,6 @@
 {
     public class CreateOrderDto
     {
-        public required List<OrderItemDto> Items { get; set; }
+        public required string Token { get; init; }
     }
 }

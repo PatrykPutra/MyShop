@@ -6,6 +6,8 @@ using AutoMapper;
 using MyShop.Data;
 using MyShop.Services;
 using MyShop.Client;
+using Microsoft.AspNetCore.Identity;
+using MyShop.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,13 @@ builder.Services.AddScoped<IShopItemServices, ShopItemServices>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
 builder.Services.AddScoped<ISummaryServices, SummaryServices>();
 builder.Services.AddScoped<ICurrencyExchangeRatesClient, CurrencyExchangeRatesClient>();
+builder.Services.AddScoped<IShoppingCartServices, ShoppingCartServices>();
+builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<IUserAuthorizationServices, UserAuthorizationServices>();
+builder.Services.AddScoped<ILoginServices, LoginServices>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<ITokenServices, TokenServices>();
+
 
 var app = builder.Build();
 
