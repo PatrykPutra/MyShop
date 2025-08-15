@@ -14,11 +14,9 @@ namespace MyShop.Services
     {
         private readonly MyShopDbContext _dbContext;
         private readonly IUserServices _userServices;
-        private readonly IUserAuthorizationServices _userAuthorizationServices;
-        public OrderServices(MyShopDbContext dbContext, IUserServices userServices,IUserAuthorizationServices userAuthorizationServices)
+        public OrderServices(MyShopDbContext dbContext, IUserServices userServices)
         {
             _dbContext = dbContext;
-            _userAuthorizationServices = userAuthorizationServices;
             _userServices = userServices;
         }
         

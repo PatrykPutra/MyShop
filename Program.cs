@@ -89,7 +89,6 @@ builder.Services.AddScoped<ISummaryServices, SummaryServices>();
 builder.Services.AddScoped<ICurrencyExchangeRatesClient, CurrencyExchangeRatesClient>();
 builder.Services.AddScoped<IShoppingCartServices, ShoppingCartServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
-builder.Services.AddScoped<IUserAuthorizationServices, UserAuthorizationServices>();
 builder.Services.AddScoped<ILoginServices, LoginServices>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();

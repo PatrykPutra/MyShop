@@ -16,13 +16,11 @@ namespace MyShop.Services
     {
         private readonly MyShopDbContext _dbContext;
         private readonly IPasswordHasher<User> _passwordHasher;
-        private readonly IUserAuthorizationServices _userAuthorizationServices;
-       
-        public UserServices(MyShopDbContext dbContext,  IUserAuthorizationServices userAuthorizationServices, IPasswordHasher<User> passwordHasher)
+               
+        public UserServices(MyShopDbContext dbContext, IPasswordHasher<User> passwordHasher)
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
-            _userAuthorizationServices = userAuthorizationServices;
         }
 
         public async Task CreateAsync(CreateUserDto userDto)
