@@ -7,19 +7,22 @@ using System.Security.Authentication;
 
 namespace MyShop.Services
 {
+    public interface IUserServices
+    {
+        Task CreateAsync(CreateUserDto userDto);
+        Task<User> GetAsync(int userId);
+    }
     public class UserServices : IUserServices
     {
         private readonly MyShopDbContext _dbContext;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IUserAuthorizationServices _userAuthorizationServices;
-        private readonly ITokenServices _tokenServices;
-
-        public UserServices(MyShopDbContext dbContext,  IUserAuthorizationServices userAuthorizationServices, IPasswordHasher<User> passwordHasher, ITokenServices tokenServices)
+       
+        public UserServices(MyShopDbContext dbContext,  IUserAuthorizationServices userAuthorizationServices, IPasswordHasher<User> passwordHasher)
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
             _userAuthorizationServices = userAuthorizationServices;
-            _tokenServices = tokenServices;
         }
 
         public async Task CreateAsync(CreateUserDto userDto)
@@ -42,10 +45,8 @@ namespace MyShop.Services
             _dbContext.Users.Add(newUser);
             await _dbContext.SaveChangesAsync();
         }
-        public async Task<User> GetAsync(string token)
+        public async Task<User> GetAsync(int userId)
         {
-            int userId = _tokenServices.GetId(token);
-            if (!await _userAuthorizationServices.IsAuthorized(token, userId)) throw new UnauthorizedRequestException("Unauthorized request");
             User? user = await _dbContext.Users
                .Include(user => user.Cart)
                .FirstOrDefaultAsync(user => user.Id == userId);

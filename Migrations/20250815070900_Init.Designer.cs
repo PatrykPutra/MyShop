@@ -12,7 +12,7 @@ using MyShop.Data;
 namespace MyShop.Migrations
 {
     [DbContext(typeof(MyShopDbContext))]
-    [Migration("20250809080430_Init")]
+    [Migration("20250815070900_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -179,29 +179,6 @@ namespace MyShop.Migrations
                     b.ToTable("ShoppingCarts");
                 });
 
-            modelBuilder.Entity("MyShop.Models.Token", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Tokens");
-                });
-
             modelBuilder.Entity("MyShop.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -223,9 +200,6 @@ namespace MyShop.Migrations
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TokenId")
-                        .HasColumnType("int");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -277,17 +251,6 @@ namespace MyShop.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyShop.Models.Token", b =>
-                {
-                    b.HasOne("MyShop.Models.User", "User")
-                        .WithOne("Token")
-                        .HasForeignKey("MyShop.Models.Token", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("MyShop.Models.ItemCategory", b =>
                 {
                     b.Navigation("ShopItems");
@@ -304,8 +267,6 @@ namespace MyShop.Migrations
                         .IsRequired();
 
                     b.Navigation("Orders");
-
-                    b.Navigation("Token");
                 });
 #pragma warning restore 612, 618
         }

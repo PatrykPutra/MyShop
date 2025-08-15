@@ -8,6 +8,15 @@ using System.Security.Authentication;
 
 namespace MyShop.Services
 {
+    public interface IShopItemServices
+    {
+        Task<int> CreateAsync(CreateShopItemDto newItemDto);
+        Task DeleteAsync(int id);
+        Task<ShopItemDto> GetByIdAsync(int id, string currencyName);
+        Task<List<ShopItemDto>> GetByCategoryAsync(int categoryId, string currencyName);
+        Task<List<ShopItemDto>> GetAllAsync(string currencyName);
+        Task UpdateAsync(int id, CreateShopItemDto updatedShopItem);
+    }
     public class ShopItemServices : IShopItemServices
     {
         private readonly MyShopDbContext _dbContext;
@@ -23,9 +32,6 @@ namespace MyShop.Services
         }
         public async Task<int> CreateAsync(CreateShopItemDto newItemDto)
         {
-            User user = await _userServices.GetAsync(newItemDto.Token);
-            if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request.");
-            
 
             ItemCategory? category = await _dbContext.ItemCategories.FindAsync(newItemDto.CategoryId);
             if (category == null) throw new ArgumentException($"Category no. {newItemDto.CategoryId} does not exist.");
@@ -105,7 +111,7 @@ namespace MyShop.Services
         public async Task UpdateAsync(int id, CreateShopItemDto updatedShopItem)
         {
            
-            User user = await _userServices.GetAsync(updatedShopItem.Token);
+            User user = await _userServices.GetAsync(id);
             if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request.");
          
             ShopItem? existingShopItem = await _dbContext.ShopItems.FindAsync(id);
@@ -121,10 +127,10 @@ namespace MyShop.Services
 
             await _dbContext.SaveChangesAsync();
         }
-        public async Task DeleteAsync(int id,string token)
+        public async Task DeleteAsync(int id)
         {
            
-            User user = await _userServices.GetAsync(token);
+            User user = await _userServices.GetAsync(id);
             if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request.");
             
             ShopItem? shopItem = await _dbContext.ShopItems.FindAsync(id);

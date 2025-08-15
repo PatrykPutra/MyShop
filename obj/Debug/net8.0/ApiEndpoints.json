@@ -84,19 +84,13 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MyShop.Controllers.OrdersController",
+    "ContainingType": "MyShop.Controllers.OrderController",
     "Method": "Add",
-    "RelativePath": "api/Orders",
+    "RelativePath": "api/Order",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "newOrderDto",
-        "Type": "MyShop.Models.CreateOrderDto",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -168,11 +162,6 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "token",
-        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -265,7 +254,7 @@
   },
   {
     "ContainingType": "MyShop.Controllers.SignInController",
-    "Method": "LoginAsync",
+    "Method": "Login",
     "RelativePath": "api/SignIn/User",
     "HttpMethod": "POST",
     "IsController": true,

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyShop.Models;
 using MyShop.Services;
 
@@ -6,6 +7,7 @@ namespace MyShop.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class SignInController : ControllerBase
     {
         private IUserServices _userServices;
@@ -26,10 +28,9 @@ namespace MyShop.Controllers
         }
 
         [HttpPost("User")]
-        public async Task<IActionResult> LoginAsync([FromBody] CredentialsDto credentials)
+        public IActionResult Login([FromBody] CredentialsDto credentials)
         {
-            
-            string responce = await _loginServices.Login(credentials);
+            string responce = _loginServices.GenerateJwt(credentials);
             return Ok(responce);
     
         }

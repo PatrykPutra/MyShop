@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Client;
 using MyShop.Data;
@@ -10,6 +11,7 @@ namespace MyShop.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ShopItemController : ControllerBase
     {
         private readonly IShopItemServices _services;
@@ -20,6 +22,7 @@ namespace MyShop.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddProduct([FromBody] CreateShopItemDto shopItemDto)
         {
           
@@ -37,7 +40,7 @@ namespace MyShop.Controllers
   
         }
         [HttpGet("ByCategory")]
-        public async Task<IActionResult> GetItemsByCategoryAsync(int categoryId, [FromQuery] string currencyName)
+        public async Task<IActionResult> GetItemsByCategoryAsync([FromQuery] int categoryId, [FromQuery] string currencyName)
         {
             
             var result = await _services.GetByCategoryAsync(categoryId, currencyName);
@@ -54,6 +57,7 @@ namespace MyShop.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] CreateShopItemDto updatedShopItem)
         {
            
@@ -63,10 +67,11 @@ namespace MyShop.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItemAsync(int id,[FromBody]string token)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteItemAsync(int id)
         {
            
-            await _services.DeleteAsync(id,token);
+            await _services.DeleteAsync(id);
             return NoContent();
            
            

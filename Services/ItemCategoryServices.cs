@@ -8,6 +8,14 @@ using System.Security.Authentication;
 
 namespace MyShop.Services
 {
+    public interface IItemCategoryServices
+    {
+        Task<int> CreateAsync(CreateItemCategoryDto itemCategoryDto);
+        Task DeleteAsync(int id, string token);
+        Task<List<ItemCategoryDto>> GetAllAsync();
+        Task<ItemCategoryDto> GetByIdAsync(int id);
+        Task UpdateAsync(int id, CreateItemCategoryDto itemCategoryDto);
+    }
     public class ItemCategoryServices : IItemCategoryServices
     {
         private readonly MyShopDbContext _dbContext;
@@ -36,11 +44,7 @@ namespace MyShop.Services
         }
         public async Task<int> CreateAsync(CreateItemCategoryDto itemCategoryDto)
         {
-            
-            User user = await _userServices.GetAsync(itemCategoryDto.Token);
-            if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request");
-           
-                   
+  
             ItemCategory itemCategory = _mapper.Map<ItemCategory>(itemCategoryDto);
             _dbContext.ItemCategories.Add(itemCategory);
             await _dbContext.SaveChangesAsync();
@@ -48,10 +52,7 @@ namespace MyShop.Services
         }
         public async Task UpdateAsync(int id, CreateItemCategoryDto itemCategoryDto)
         {
-          
-            User user = await _userServices.GetAsync(itemCategoryDto.Token);
-            if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request");
-          
+
             ItemCategory? itemCategory = _dbContext.ItemCategories.Find(id);
             if (itemCategory == null) throw new NotFoundException("Item category not found");
             if (itemCategory.Id == 1) throw new ArgumentException("Category Other cannot be changed");
@@ -60,10 +61,7 @@ namespace MyShop.Services
         }
         public async Task DeleteAsync(int id,string token)
         {
-            
-            User user = await _userServices.GetAsync(token);
-            if (user.IsAdmin == false) throw new UnauthorizedRequestException("Unauthorized request");
-            
+  
             ItemCategory? itemCategory = _dbContext.ItemCategories.Find(id);
             if (itemCategory == null) throw new NotFoundException("Item category not found");
             if (itemCategory.Id == 1) throw new ArgumentException("Category Other cannot be removed");

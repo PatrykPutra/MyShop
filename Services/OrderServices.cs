@@ -6,6 +6,10 @@ using System.Security.Authentication;
 
 namespace MyShop.Services
 {
+    public interface IOrderServices
+    {
+        Task AddAsync(int userId);
+    }
     public class OrderServices : IOrderServices
     {
         private readonly MyShopDbContext _dbContext;
@@ -18,10 +22,10 @@ namespace MyShop.Services
             _userServices = userServices;
         }
         
-        public async Task AddAsync(CreateOrderDto newOrderDto)
+        public async Task AddAsync(int userId)
         {
-            if (newOrderDto == null) throw new ArgumentException("Invalid request parameter.");
-            User user = await _userServices.GetAsync(newOrderDto.Token);
+            
+            User user = await _userServices.GetAsync(userId);
 
             List<int> orderItemsIds = new List<int>(user.Cart.ShopItemsIds);
             if (orderItemsIds.Count == 0) throw new ArgumentException("Cart is empty");

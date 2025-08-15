@@ -11,8 +11,6 @@ namespace MyShop.Models
         public required string Email { get; set; }
         public required ShoppingCart Cart { get; set; }
         public required int CartId { get; set; }
-        public Token? Token { get; set; }
-        public int TokenId { get; set; }
 
         public List<Order> Orders { get; set; } = new List<Order>();
 

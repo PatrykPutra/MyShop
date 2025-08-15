@@ -9,6 +9,5 @@ namespace MyShop.Models
         public required decimal PriceUSD { get; init; }
         public required int CategoryId { get; init; }
         public required int Quantity { get; init; }
-        public required string Token { get; init; }
     }
 }

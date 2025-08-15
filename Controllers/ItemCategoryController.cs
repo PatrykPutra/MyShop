@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
@@ -10,6 +11,7 @@ namespace MyShop.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ItemCategoryController : ControllerBase
     {
         private readonly IItemCategoryServices _services;
@@ -35,6 +37,7 @@ namespace MyShop.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add([FromBody] CreateItemCategoryDto newItemCategoryDto)
         {
             var result = await _services.CreateAsync(newItemCategoryDto);
@@ -42,6 +45,7 @@ namespace MyShop.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, [FromBody] CreateItemCategoryDto itemCategoryDto)
         {
             
@@ -50,6 +54,7 @@ namespace MyShop.Controllers
   
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id, [FromBody] string token)
         {
             

@@ -11,7 +11,7 @@ namespace MyShop.Data
         public DbSet<ExchangeRate> ExchangeRates { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
-        public DbSet<Token> Tokens { get; set; }
+       
         public MyShopDbContext(DbContextOptions<MyShopDbContext> options) : base(options)
         {
 
@@ -44,11 +44,6 @@ namespace MyShop.Data
                 .HasOne(user => user.Cart)
                 .WithOne(shoppingCart => shoppingCart.User)
                 .HasForeignKey<ShoppingCart>(shoppingCart => shoppingCart.UserId);
-            
-            modelBuilder.Entity<User>()
-                .HasOne(user => user.Token)
-                .WithOne(token => token.User)
-                .HasForeignKey<Token>(token => token.UserId);
 
             modelBuilder.Entity<User>()
                 .HasMany(user => user.Orders)

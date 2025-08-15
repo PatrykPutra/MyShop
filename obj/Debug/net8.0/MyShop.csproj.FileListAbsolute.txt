@@ -170,3 +170,4 @@ D:\PROJEKTY\GitHub\Portfolio\MyShop\obj\Debug\net8.0\ref\MyShop.dll
 D:\PROJEKTY\GitHub\Portfolio\MyShop\bin\Debug\net8.0\AutoMapper.dll
 D:\PROJEKTY\GitHub\Portfolio\MyShop\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\PROJEKTY\GitHub\Portfolio\MyShop\obj\Debug\net8.0\MyShop.sourcelink.json
+D:\PROJEKTY\GitHub\Portfolio\MyShop\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
