@@ -3,12 +3,40 @@
   "WorkspaceRootPath": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\services\\exchangeratesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:services\\exchangeratesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\services\\shopitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:services\\shopitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\controllers\\shopitemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:controllers\\shopitemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\services\\itemcategoryservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:services\\itemcategoryservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\controllers\\itemcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:controllers\\itemcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\middleware\\errorhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:middleware\\errorhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\services\\loginservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,8 +47,16 @@
       "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:services\\orderservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\services\\shopitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:services\\shopitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\controllers\\summarycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:controllers\\summarycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\services\\exchangeratesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:services\\exchangeratesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\services\\shoppingcartservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,22 +65,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\services\\summaryservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:services\\summaryservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\controllers\\itemcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:controllers\\itemcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\controllers\\signincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -63,20 +83,8 @@
       "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:models\\createitemcategorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\controllers\\summarycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:controllers\\summarycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\controllers\\shopitemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:controllers\\shopitemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|solutionrelative:controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{41D1F9BE-490E-4BBD-98B3-4DB9F0207826}|MyShop.csproj|d:\\projekty\\github\\portfolio\\myshop\\authentitactionsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -102,7 +110,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 22,
+          "SelectedChildIndex": 21,
           "Children": [
             {
               "$type": "Bookmark",
@@ -110,7 +118,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 6,
+              "Title": "ErrorHandlingMiddleware.cs",
+              "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Middleware\\ErrorHandlingMiddleware.cs",
+              "RelativeDocumentMoniker": "Middleware\\ErrorHandlingMiddleware.cs",
+              "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Middleware\\ErrorHandlingMiddleware.cs",
+              "RelativeToolTip": "Middleware\\ErrorHandlingMiddleware.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwCkAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T09:54:33.282Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "nlog.config",
+              "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\nlog.config",
+              "RelativeDocumentMoniker": "nlog.config",
+              "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\nlog.config",
+              "RelativeToolTip": "nlog.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-08-17T09:18:20.762Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
               "Title": "20250815070900_Init.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Migrations\\20250815070900_Init.cs",
               "RelativeDocumentMoniker": "Migrations\\20250815070900_Init.cs",
@@ -118,11 +152,12 @@
               "RelativeToolTip": "Migrations\\20250815070900_Init.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-15T07:09:00.846Z"
+              "WhenOpened": "2025-08-15T07:09:00.846Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 10,
               "Title": "OrderServices.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Services\\OrderServices.cs",
               "RelativeDocumentMoniker": "Services\\OrderServices.cs",
@@ -135,19 +170,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 2,
               "Title": "OrderController.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\OrderController.cs",
               "RelativeDocumentMoniker": "Controllers\\OrderController.cs",
               "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\OrderController.cs",
               "RelativeToolTip": "Controllers\\OrderController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAABrAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T17:59:33.073Z"
+              "WhenOpened": "2025-08-14T17:59:33.073Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 22,
               "Title": "ShoppingCartItemDto.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Models\\ShoppingCartItemDto.cs",
               "RelativeDocumentMoniker": "Models\\ShoppingCartItemDto.cs",
@@ -155,11 +191,12 @@
               "RelativeToolTip": "Models\\ShoppingCartItemDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T17:57:53.921Z"
+              "WhenOpened": "2025-08-14T17:57:53.921Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 18,
               "Title": "CreateShopItemDto.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Models\\CreateShopItemDto.cs",
               "RelativeDocumentMoniker": "Models\\CreateShopItemDto.cs",
@@ -167,11 +204,12 @@
               "RelativeToolTip": "Models\\CreateShopItemDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T17:57:15.611Z"
+              "WhenOpened": "2025-08-14T17:57:15.611Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 19,
               "Title": "CreateItemCategoryDto.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Models\\CreateItemCategoryDto.cs",
               "RelativeDocumentMoniker": "Models\\CreateItemCategoryDto.cs",
@@ -179,11 +217,12 @@
               "RelativeToolTip": "Models\\CreateItemCategoryDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T17:56:32.128Z"
+              "WhenOpened": "2025-08-14T17:56:32.128Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 17,
               "Title": "MyShopDbContext.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Data\\MyShopDbContext.cs",
               "RelativeDocumentMoniker": "Data\\MyShopDbContext.cs",
@@ -191,11 +230,12 @@
               "RelativeToolTip": "Data\\MyShopDbContext.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAAAwC4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T17:46:05.084Z"
+              "WhenOpened": "2025-08-14T17:46:05.084Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
@@ -203,71 +243,77 @@
               "RelativeToolTip": "Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T17:45:32.673Z"
+              "WhenOpened": "2025-08-14T17:45:32.673Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 12,
               "Title": "SummaryController.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\SummaryController.cs",
               "RelativeDocumentMoniker": "Controllers\\SummaryController.cs",
               "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\SummaryController.cs",
               "RelativeToolTip": "Controllers\\SummaryController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T17:31:39.85Z"
+              "WhenOpened": "2025-08-14T17:31:39.85Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "ShoppingCartController.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\ShoppingCartController.cs",
               "RelativeDocumentMoniker": "Controllers\\ShoppingCartController.cs",
               "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\ShoppingCartController.cs",
               "RelativeToolTip": "Controllers\\ShoppingCartController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACEAAABrAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAIBJwCEAAABrAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T17:31:02.313Z"
+              "WhenOpened": "2025-08-14T17:31:02.313Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 1,
               "Title": "ShopItemController.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\ShopItemController.cs",
               "RelativeDocumentMoniker": "Controllers\\ShopItemController.cs",
               "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\ShopItemController.cs",
               "RelativeToolTip": "Controllers\\ShopItemController.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAxwDAAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACAAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T17:30:19.563Z"
+              "WhenOpened": "2025-08-14T17:30:19.563Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 5,
               "Title": "ItemCategoryController.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\ItemCategoryController.cs",
               "RelativeDocumentMoniker": "Controllers\\ItemCategoryController.cs",
               "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\ItemCategoryController.cs",
               "RelativeToolTip": "Controllers\\ItemCategoryController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T17:28:08.443Z"
+              "WhenOpened": "2025-08-14T17:28:08.443Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "SignInController.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\SignInController.cs",
               "RelativeDocumentMoniker": "Controllers\\SignInController.cs",
               "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Controllers\\SignInController.cs",
               "RelativeToolTip": "Controllers\\SignInController.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAA1wBgAAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAQwBgAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T15:46:18.036Z"
+              "WhenOpened": "2025-08-14T15:46:18.036Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "AuthentitactionSettings.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\AuthentitactionSettings.cs",
               "RelativeDocumentMoniker": "AuthentitactionSettings.cs",
@@ -275,11 +321,12 @@
               "RelativeToolTip": "AuthentitactionSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T14:38:58.717Z"
+              "WhenOpened": "2025-08-14T14:38:58.717Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 7,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -287,11 +334,12 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-08-14T14:28:24.672Z"
+              "WhenOpened": "2025-08-14T14:28:24.672Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "UserServices.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Services\\UserServices.cs",
               "RelativeDocumentMoniker": "Services\\UserServices.cs",
@@ -304,7 +352,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 15,
               "Title": "SummaryServices.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Services\\SummaryServices.cs",
               "RelativeDocumentMoniker": "Services\\SummaryServices.cs",
@@ -317,7 +365,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 14,
               "Title": "ShoppingCartServices.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Services\\ShoppingCartServices.cs",
               "RelativeDocumentMoniker": "Services\\ShoppingCartServices.cs",
@@ -330,20 +378,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "ShopItemServices.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Services\\ShopItemServices.cs",
               "RelativeDocumentMoniker": "Services\\ShopItemServices.cs",
               "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Services\\ShopItemServices.cs",
               "RelativeToolTip": "Services\\ShopItemServices.cs",
-              "ViewState": "AgIAAHkAAAAAAAAAAAAUwCIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGsAAAAAAAAAAADwv4wAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-14T14:21:28.555Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
               "Title": "LoginServices.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Services\\LoginServices.cs",
               "RelativeDocumentMoniker": "Services\\LoginServices.cs",
@@ -356,20 +404,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "ItemCategoryServices.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Services\\ItemCategoryServices.cs",
               "RelativeDocumentMoniker": "Services\\ItemCategoryServices.cs",
               "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Services\\ItemCategoryServices.cs",
               "RelativeToolTip": "Services\\ItemCategoryServices.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwD8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACIAAAAAAAAAAAAUwDEAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-14T14:20:03.899Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 13,
               "Title": "ExchangeRatesServices.cs",
               "DocumentMoniker": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Services\\ExchangeRatesServices.cs",
               "RelativeDocumentMoniker": "Services\\ExchangeRatesServices.cs",
@@ -388,7 +436,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\PROJEKTY\\GitHub\\Portfolio\\MyShop\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFoAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAABQAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-20T08:25:29.645Z",
               "EditorCaption": ""

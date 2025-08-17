@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
 using MyShop.Models;
 using MyShop.Services;
+using System.Security.Claims;
 
 
 namespace MyShop.Controllers
@@ -40,7 +41,8 @@ namespace MyShop.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add([FromBody] CreateItemCategoryDto newItemCategoryDto)
         {
-            var result = await _services.CreateAsync(newItemCategoryDto);
+            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+            var result = await _services.CreateAsync(newItemCategoryDto,userId);
             return Created($"api/ItemCategory/{result}",null);
         }
 
@@ -48,17 +50,17 @@ namespace MyShop.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, [FromBody] CreateItemCategoryDto itemCategoryDto)
         {
-            
-            await _services.UpdateAsync(id, itemCategoryDto);
+            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+            await _services.UpdateAsync(id, itemCategoryDto,userId);
             return Ok();
   
         }
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int id, [FromBody] string token)
+        public async Task<IActionResult> Delete(int id)
         {
-            
-            await _services.DeleteAsync(id,token);
+            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+            await _services.DeleteAsync(id,userId);
             return Ok();
           
         }

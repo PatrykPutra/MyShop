@@ -171,3 +171,7 @@ D:\PROJEKTY\GitHub\Portfolio\MyShop\bin\Debug\net8.0\AutoMapper.dll
 D:\PROJEKTY\GitHub\Portfolio\MyShop\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\PROJEKTY\GitHub\Portfolio\MyShop\obj\Debug\net8.0\MyShop.sourcelink.json
 D:\PROJEKTY\GitHub\Portfolio\MyShop\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\PROJEKTY\GitHub\Portfolio\MyShop\bin\Debug\net8.0\nlog.config
+D:\PROJEKTY\GitHub\Portfolio\MyShop\bin\Debug\net8.0\NLog.dll
+D:\PROJEKTY\GitHub\Portfolio\MyShop\bin\Debug\net8.0\NLog.Extensions.Logging.dll
+D:\PROJEKTY\GitHub\Portfolio\MyShop\bin\Debug\net8.0\NLog.Web.AspNetCore.dll

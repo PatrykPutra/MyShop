@@ -74,11 +74,6 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
-      },
-      {
-        "Name": "token",
-        "Type": "System.String",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []

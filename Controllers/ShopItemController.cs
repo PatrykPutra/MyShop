@@ -5,6 +5,7 @@ using MyShop.Client;
 using MyShop.Data;
 using MyShop.Models;
 using MyShop.Services;
+using System.Security.Claims;
 
 
 namespace MyShop.Controllers
@@ -25,8 +26,8 @@ namespace MyShop.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddProduct([FromBody] CreateShopItemDto shopItemDto)
         {
-          
-            var result = await _services.CreateAsync(shopItemDto);
+            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+            var result = await _services.CreateAsync(shopItemDto,userId);
             return Created($"api/ShopItem/{result}",null);
            
             
@@ -60,8 +61,8 @@ namespace MyShop.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] CreateShopItemDto updatedShopItem)
         {
-           
-            await _services.UpdateAsync(id, updatedShopItem);
+            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+            await _services.UpdateAsync(id, updatedShopItem,userId);
             return NoContent();
            
         }
@@ -70,8 +71,8 @@ namespace MyShop.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteItemAsync(int id)
         {
-           
-            await _services.DeleteAsync(id);
+            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+            await _services.DeleteAsync(id, userId);
             return NoContent();
            
            
