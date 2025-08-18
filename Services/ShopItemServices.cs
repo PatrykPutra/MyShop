@@ -10,31 +10,31 @@ namespace MyShop.Services
 {
     public interface IShopItemServices
     {
-        Task<int> CreateAsync(CreateShopItemDto newItemDto,int userId);
-        Task DeleteAsync(int id, int userId);
+        Task<int> CreateAsync(CreateShopItemDto newItemDto);
+        Task DeleteAsync(int id);
         Task<ShopItemDto> GetByIdAsync(int id, string currencyName);
         Task<List<ShopItemDto>> GetByCategoryAsync(int categoryId, string currencyName);
         Task<List<ShopItemDto>> GetAllAsync(string currencyName);
-        Task UpdateAsync(int id, CreateShopItemDto updatedShopItem, int userId);
+        Task UpdateAsync(int id, CreateShopItemDto updatedShopItem);
     }
     public class ShopItemServices : IShopItemServices
     {
         private readonly MyShopDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IExchangeRatesServices _exchangeRatesServices;
-        private readonly IUserServices _userServices;
+        private readonly IUserContextService _userContextService;
         private readonly ILogger<ShopItemServices> _logger;
-        public ShopItemServices(MyShopDbContext dbContext, IMapper mapper, IExchangeRatesServices exchangeRatesServices, IUserServices userServices, ILogger<ShopItemServices> logger)
+        public ShopItemServices(MyShopDbContext dbContext, IMapper mapper, IExchangeRatesServices exchangeRatesServices, IUserContextService userContextServices, ILogger<ShopItemServices> logger)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _exchangeRatesServices = exchangeRatesServices;
-            _userServices = userServices;
+            _userContextService = userContextServices;
             _logger = logger;
         }
-        public async Task<int> CreateAsync(CreateShopItemDto newItemDto,int userId)
+        public async Task<int> CreateAsync(CreateShopItemDto newItemDto)
         {
-
+            int userId = _userContextService.GetUserId();
             ItemCategory? category = await _dbContext.ItemCategories.FindAsync(newItemDto.CategoryId);
             if (category == null) throw new ArgumentException($"Category no. {newItemDto.CategoryId} does not exist.");
 
@@ -111,14 +111,18 @@ namespace MyShop.Services
             return shopItemsDtos;
         }
 
-        public async Task UpdateAsync(int id, CreateShopItemDto updatedShopItem,int userId)
+        public async Task UpdateAsync(int id, CreateShopItemDto updatedShopItem)
         {
-           
+            int userId = _userContextService.GetUserId();
+
             ShopItem? existingShopItem = await _dbContext.ShopItems.FindAsync(id);
             if (existingShopItem == null) throw new NotFoundException($"ShopItem with Id: {id} does not exist.");
+
             ItemCategory? category = await _dbContext.ItemCategories.FindAsync(updatedShopItem.CategoryId);
             if (category == null) throw new ArgumentException($"ItemCategory with Id: {updatedShopItem.CategoryId} does not exist.");
+
             _logger.LogInformation($"Shop item No: {existingShopItem.Id} {existingShopItem.Name} updated by user {userId}");
+
             existingShopItem.Name = updatedShopItem.Name;
             existingShopItem.Text = updatedShopItem.Text;
             existingShopItem.PriceUSD = updatedShopItem.PriceUSD;
@@ -128,11 +132,15 @@ namespace MyShop.Services
             await _dbContext.SaveChangesAsync();
             
         }
-        public async Task DeleteAsync(int id,int userId)
-        {            
+        public async Task DeleteAsync(int id)
+        {
+            int userId = _userContextService.GetUserId();
+
             ShopItem? shopItem = await _dbContext.ShopItems.FindAsync(id);
             if (shopItem == null) throw new NotFoundException($"ShopItem with Id: {id} does not exist.");
+
             _logger.LogInformation($"Shop item No: {shopItem.Id} {shopItem.Name} deleted by user {userId}");
+
             _dbContext.ShopItems.Remove(shopItem);
             await _dbContext.SaveChangesAsync();
         }

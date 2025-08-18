@@ -20,10 +20,8 @@ namespace MyShop.Controllers
         [HttpPost]
         public async Task<IActionResult> Add()
         {
-            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
-            await _services.AddAsync(userId);
-            return Ok();
-           
+            await _services.AddAsync();
+            return Ok(); 
         }
     }
 }

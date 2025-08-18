@@ -8,21 +8,23 @@ namespace MyShop.Services
 {
     public interface IOrderServices
     {
-        Task AddAsync(int userId);
+        Task AddAsync();
     }
     public class OrderServices : IOrderServices
     {
         private readonly MyShopDbContext _dbContext;
         private readonly IUserServices _userServices;
-        public OrderServices(MyShopDbContext dbContext, IUserServices userServices)
+        private readonly IUserContextService _userContextService;
+        public OrderServices(MyShopDbContext dbContext, IUserServices userServices,IUserContextService userContextService)
         {
             _dbContext = dbContext;
             _userServices = userServices;
+            _userContextService = userContextService;
         }
         
-        public async Task AddAsync(int userId)
+        public async Task AddAsync()
         {
-            
+            int userId = _userContextService.GetUserId();
             User user = await _userServices.GetAsync(userId);
 
             List<int> orderItemsIds = new List<int>(user.Cart.ShopItemsIds);

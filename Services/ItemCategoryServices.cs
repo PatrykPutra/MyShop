@@ -10,23 +10,23 @@ namespace MyShop.Services
 {
     public interface IItemCategoryServices
     {
-        Task<int> CreateAsync(CreateItemCategoryDto itemCategoryDto, int userId);
-        Task DeleteAsync(int id, int userId);
+        Task<int> CreateAsync(CreateItemCategoryDto itemCategoryDto);
+        Task DeleteAsync(int id);
         Task<List<ItemCategoryDto>> GetAllAsync();
         Task<ItemCategoryDto> GetByIdAsync(int id);
-        Task UpdateAsync(int id, CreateItemCategoryDto itemCategoryDto, int userId);
+        Task UpdateAsync(int id, CreateItemCategoryDto itemCategoryDto);
     }
     public class ItemCategoryServices : IItemCategoryServices
     {
         private readonly MyShopDbContext _dbContext;
         private readonly IMapper _mapper;
-        private readonly IUserServices _userServices;
+        private readonly IUserContextService _userContextService;
         private readonly ILogger _logger;
-        public ItemCategoryServices(MyShopDbContext dbContext, IMapper mapper, IUserServices userServices, ILogger<ItemCategoryServices> logger)
+        public ItemCategoryServices(MyShopDbContext dbContext, IMapper mapper, IUserContextService userContextService, ILogger<ItemCategoryServices> logger)
         {
             _dbContext = dbContext;
             _mapper = mapper;
-            _userServices = userServices;
+            _userContextService = userContextService;
             _logger = logger;
         }
         public async Task<List<ItemCategoryDto>> GetAllAsync()
@@ -44,17 +44,18 @@ namespace MyShop.Services
             ItemCategoryDto categoryDto = _mapper.Map<ItemCategoryDto>(category);
             return categoryDto;
         }
-        public async Task<int> CreateAsync(CreateItemCategoryDto itemCategoryDto, int userId)
+        public async Task<int> CreateAsync(CreateItemCategoryDto itemCategoryDto)
         {
+            int userId = _userContextService.GetUserId();
             ItemCategory itemCategory = _mapper.Map<ItemCategory>(itemCategoryDto);
             _dbContext.ItemCategories.Add(itemCategory);
             await _dbContext.SaveChangesAsync();
             _logger.LogInformation($"Item category {itemCategory.Id} {itemCategoryDto.Name} created by user: {userId}");
             return itemCategory.Id;
         }
-        public async Task UpdateAsync(int id, CreateItemCategoryDto itemCategoryDto,int userId)
+        public async Task UpdateAsync(int id, CreateItemCategoryDto itemCategoryDto)
         {
-            
+            int userId = _userContextService.GetUserId();
             ItemCategory? itemCategory = _dbContext.ItemCategories.Find(id);
             if (itemCategory == null) throw new NotFoundException("Item category not found");
             if (itemCategory.Id == 1) throw new ArgumentException("Category Other cannot be changed");
@@ -63,8 +64,9 @@ namespace MyShop.Services
             
             await _dbContext.SaveChangesAsync();
         }
-        public async Task DeleteAsync(int id, int userId)
+        public async Task DeleteAsync(int id)
         {
+            int userId = _userContextService.GetUserId();
             ItemCategory? itemCategory = _dbContext.ItemCategories.Find(id);
             if (itemCategory == null) throw new NotFoundException("Item category not found");
             if (itemCategory.Id == 1) throw new ArgumentException("Category Other cannot be removed");

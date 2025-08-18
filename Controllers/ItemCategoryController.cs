@@ -41,8 +41,8 @@ namespace MyShop.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add([FromBody] CreateItemCategoryDto newItemCategoryDto)
         {
-            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
-            var result = await _services.CreateAsync(newItemCategoryDto,userId);
+            
+            var result = await _services.CreateAsync(newItemCategoryDto);
             return Created($"api/ItemCategory/{result}",null);
         }
 
@@ -50,17 +50,15 @@ namespace MyShop.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, [FromBody] CreateItemCategoryDto itemCategoryDto)
         {
-            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
-            await _services.UpdateAsync(id, itemCategoryDto,userId);
+            await _services.UpdateAsync(id, itemCategoryDto);
             return Ok();
-  
         }
+
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
-            await _services.DeleteAsync(id,userId);
+            await _services.DeleteAsync(id);
             return Ok();
           
         }

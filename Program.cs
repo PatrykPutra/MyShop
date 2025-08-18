@@ -95,6 +95,9 @@ builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<ILoginServices, LoginServices>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddScoped<IUserContextService, UserContextService>();
+
+builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();

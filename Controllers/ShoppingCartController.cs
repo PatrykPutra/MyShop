@@ -23,16 +23,17 @@ namespace MyShop.Controllers
         [HttpPost("AddItem")]
         public async Task<IActionResult> AddItemAsync([FromBody]ShoppingCartItemDto shoppingCartItemDto)
         {
-            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
-            await _shoppingCartServices.AddItemAsync(shoppingCartItemDto,userId);
+
+            await _shoppingCartServices.AddItemAsync(shoppingCartItemDto);
             return Ok();
             
         }
+
         [HttpPut("RemoveItem")]
         public async Task<IActionResult> RemoveItemAsync([FromBody] ShoppingCartItemDto shoppingCartItemDto)
         {
-            int userId = int.Parse(User.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
-            await _shoppingCartServices.RemoveItemAsync(shoppingCartItemDto, userId);
+
+            await _shoppingCartServices.RemoveItemAsync(shoppingCartItemDto);
             return Ok();
             
         }
