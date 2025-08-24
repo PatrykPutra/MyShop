@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
+using MyShop.Entities;
 using MyShop.Exceptions;
 using MyShop.Models;
 using System.Security.Authentication;
@@ -13,8 +14,7 @@ namespace MyShop.Services
         Task<int> CreateAsync(CreateShopItemDto newItemDto);
         Task DeleteAsync(int id);
         Task<ShopItemDto> GetByIdAsync(int id, string currencyName);
-        Task<List<ShopItemDto>> GetByCategoryAsync(int categoryId, string currencyName);
-        Task<List<ShopItemDto>> GetAllAsync(string currencyName);
+        Task<List<ShopItemDto>> GetAllAsync(int? categoryId, string? currencyName);
         Task UpdateAsync(int id, CreateShopItemDto updatedShopItem);
     }
     public class ShopItemServices : IShopItemServices
@@ -38,15 +38,7 @@ namespace MyShop.Services
             ItemCategory? category = await _dbContext.ItemCategories.FindAsync(newItemDto.CategoryId);
             if (category == null) throw new ArgumentException($"Category no. {newItemDto.CategoryId} does not exist.");
 
-            ShopItem shopItem = new ShopItem
-            {
-                Name = newItemDto.Name,
-                Text = newItemDto.Text,
-                PriceUSD = newItemDto.PriceUSD,
-                Quantity = newItemDto.Quantity,
-                Category = category,
-                CategoryId = newItemDto.CategoryId
-            };
+            ShopItem shopItem = _mapper.Map<ShopItem>(newItemDto);
 
             _dbContext.ShopItems.Add(shopItem);
             await _dbContext.SaveChangesAsync();
@@ -62,55 +54,30 @@ namespace MyShop.Services
             
             exchangeRate = await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
            
-            ShopItemDto shopItemDto = new()
-            {
-                Name = shopItem.Name,
-                Text = shopItem.Text,
-                Price = shopItem.PriceUSD * exchangeRate,
-                PriceCurrency = currencyName,
-                CategoryId = shopItem.CategoryId,
-                Quantity = shopItem.Quantity,
-            };
+            ShopItemDto shopItemDto = _mapper.Map<ShopItemDto>(shopItem);
+            shopItemDto.Price *= exchangeRate;
+            shopItemDto.PriceCurrency = currencyName;
             return shopItemDto;
         }
-        public async Task<List<ShopItemDto>> GetByCategoryAsync(int categoryId,string currencyName)
+        public async Task<List<ShopItemDto>> GetAllAsync(int? categoryId,string? currencyName)
         {
-            decimal exchangeRate;
-         
-            exchangeRate = await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
-           
-            List<ShopItem> shopItems = await _dbContext.ShopItems.Include(shopItem => shopItem.Category).Where(shopItem => shopItem.CategoryId == categoryId).ToListAsync();
-            List<ShopItemDto> shopItemsDtos = shopItems.Select(shopItem => new ShopItemDto()
+            decimal exchangeRate=1;
+            if (currencyName != null) exchangeRate = await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
+            else currencyName = "USD";
+            List<ShopItem> shopItems = categoryId == null ? 
+                await _dbContext.ShopItems.Include(shopItem => shopItem.Category).Where(shopItem => shopItem != null).ToListAsync() :
+                await _dbContext.ShopItems.Include(shopItem => shopItem.Category).Where(shopItem => shopItem.CategoryId == categoryId).ToListAsync();
+            List<ShopItemDto> shopItemsDtos = shopItems.Select(shopItem => _mapper.Map<ShopItemDto>(shopItem)).ToList();
+            foreach (var item in shopItemsDtos)
             {
-                Name = shopItem.Name,
-                Text = shopItem.Text,
-                Price = shopItem.PriceUSD * exchangeRate,
-                PriceCurrency = currencyName,
-                CategoryId = shopItem.CategoryId,
-                Quantity = shopItem.Quantity,
-            }).ToList();
+                item.Price *= exchangeRate;
+                item.PriceCurrency = currencyName;
+            }
+                
             return shopItemsDtos;
 
         }
-        public async Task<List<ShopItemDto>> GetAllAsync(string currencyName)
-        {
-            decimal exchangeRate;
-            
-            exchangeRate = await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
-          
-            List<ShopItem> shopItems = await _dbContext.ShopItems.Include(shopItem => shopItem.Category).Where(shopItem=>shopItem!=null).ToListAsync();
-            List<ShopItemDto> shopItemsDtos = shopItems.Select(shopItem => new ShopItemDto()
-            {
-                Name = shopItem.Name,
-                Text = shopItem.Text,
-                Price = shopItem.PriceUSD * exchangeRate,
-                PriceCurrency = currencyName,
-                CategoryId = shopItem.CategoryId,
-                Quantity = shopItem.Quantity,
-            }).ToList();
-            return shopItemsDtos;
-        }
-
+  
         public async Task UpdateAsync(int id, CreateShopItemDto updatedShopItem)
         {
             int userId = _userContextService.GetUserId();
@@ -122,7 +89,8 @@ namespace MyShop.Services
             if (category == null) throw new ArgumentException($"ItemCategory with Id: {updatedShopItem.CategoryId} does not exist.");
 
             _logger.LogInformation($"Shop item No: {existingShopItem.Id} {existingShopItem.Name} updated by user {userId}");
-
+            
+                      
             existingShopItem.Name = updatedShopItem.Name;
             existingShopItem.Text = updatedShopItem.Text;
             existingShopItem.PriceUSD = updatedShopItem.PriceUSD;

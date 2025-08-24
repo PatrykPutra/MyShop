@@ -89,6 +89,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "MyShop.Controllers.OrderController",
+    "Method": "Get",
+    "RelativePath": "api/Order",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MyShop.Controllers.ShopItemController",
     "Method": "AddProduct",
     "RelativePath": "api/ShopItem",
@@ -171,7 +181,12 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "currencyName",
+        "Name": "CategoryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "CurrencyName",
         "Type": "System.String",
         "IsRequired": false
       }
@@ -179,18 +194,13 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MyShop.Controllers.ShopItemController",
-    "Method": "GetItemsByCategoryAsync",
-    "RelativePath": "api/ShopItem/ByCategory",
+    "ContainingType": "MyShop.Controllers.ShoppingCartController",
+    "Method": "GetAsync",
+    "RelativePath": "api/ShoppingCart",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
-      {
-        "Name": "categoryId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
       {
         "Name": "currencyName",
         "Type": "System.String",

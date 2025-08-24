@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace MyShop.Models
+namespace MyShop.Entities
 {
-    public class User 
+    public class User
     {
         public int Id { get; set; }
         public required string UserName { get; init; }
@@ -10,7 +10,7 @@ namespace MyShop.Models
         public string? PasswordHash { get; set; }
         public required string Email { get; set; }
         public required ShoppingCart Cart { get; set; }
-        public required int CartId { get; set; }
+        public int CartId { get; set; }
 
         public List<Order> Orders { get; set; } = new List<Order>();
 

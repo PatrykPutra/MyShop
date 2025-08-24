@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using MyShop.Data;
+using MyShop.Entities;
 using MyShop.Exceptions;
 using MyShop.Models;
 using System.IdentityModel.Tokens.Jwt;

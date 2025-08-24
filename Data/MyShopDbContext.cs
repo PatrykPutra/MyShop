@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyShop.Entities;
 using MyShop.Models;
 
 namespace MyShop.Data
@@ -11,6 +12,7 @@ namespace MyShop.Data
         public DbSet<ExchangeRate> ExchangeRates { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
        
         public MyShopDbContext(DbContextOptions<MyShopDbContext> options) : base(options)
         {
@@ -56,8 +58,11 @@ namespace MyShop.Data
                 entityBuilder.Property(user => user.Email).HasMaxLength(255);
                 
             });
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.Status)
+                .WithMany(orderStatus => orderStatus.Orders)
+                .HasForeignKey(order => order.StatusId);
         
-
 
         }
 

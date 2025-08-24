@@ -7,13 +7,14 @@ using MyShop.Data;
 using MyShop.Services;
 using MyShop.Client;
 using Microsoft.AspNetCore.Identity;
-using MyShop.Models;
 using MyShop.Middleware;
 using static MyShop.AuthentitactionSettings;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using NLog.Web;
+using MyShop.Entities;
+using MyShop;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -96,11 +97,16 @@ builder.Services.AddScoped<ILoginServices, LoginServices>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IUserContextService, UserContextService>();
+builder.Services.AddScoped<MyShopSeeder>();
 
 builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();
+
+var scope = app.Services.CreateScope();
+var seeder = scope.ServiceProvider.GetRequiredService<MyShopSeeder>(); 
+seeder.Seed();
 
 app.MapControllers();
 

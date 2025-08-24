@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyShop.Data;
 
@@ -11,9 +12,11 @@ using MyShop.Data;
 namespace MyShop.Migrations
 {
     [DbContext(typeof(MyShopDbContext))]
-    partial class MyShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250823104531_change1")]
+    partial class change1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,9 +60,6 @@ namespace MyShop.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("date");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("TotalPriceUSD")
                         .HasColumnType("decimal(7,2)");
 
@@ -67,8 +67,6 @@ namespace MyShop.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StatusId");
 
                     b.HasIndex("UserId");
 
@@ -104,23 +102,6 @@ namespace MyShop.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderItem");
-                });
-
-            modelBuilder.Entity("MyShop.Entities.OrderStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OrderStatuses");
                 });
 
             modelBuilder.Entity("MyShop.Entities.ShopItem", b =>
@@ -235,19 +216,11 @@ namespace MyShop.Migrations
 
             modelBuilder.Entity("MyShop.Entities.Order", b =>
                 {
-                    b.HasOne("MyShop.Entities.OrderStatus", "Status")
-                        .WithMany("Orders")
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MyShop.Entities.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Status");
 
                     b.Navigation("User");
                 });
@@ -289,11 +262,6 @@ namespace MyShop.Migrations
             modelBuilder.Entity("MyShop.Entities.Order", b =>
                 {
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("MyShop.Entities.OrderStatus", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("MyShop.Entities.User", b =>

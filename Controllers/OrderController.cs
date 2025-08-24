@@ -23,5 +23,11 @@ namespace MyShop.Controllers
             await _services.AddAsync();
             return Ok(); 
         }
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var result = await _services.GetAsync();
+            return Ok(result);
+        }
     }
 }

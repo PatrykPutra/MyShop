@@ -39,19 +39,12 @@ namespace MyShop.Controllers
             return Ok(result);
   
         }
-        [HttpGet("ByCategory")]
-        public async Task<IActionResult> GetItemsByCategoryAsync([FromQuery] int categoryId, [FromQuery] string currencyName)
-        {
-            
-            var result = await _services.GetByCategoryAsync(categoryId, currencyName);
-            return Ok(result);
-           
-        }
+      
         [HttpGet("All")]
-        public async Task<IActionResult> GetItemsByCategoryAsync([FromQuery] string currencyName)
+        public async Task<IActionResult> GetItemsByCategoryAsync([FromQuery] ShopItemQuery query)
         {
             
-            var result = await _services.GetAllAsync(currencyName);
+            var result = await _services.GetAllAsync(query.CategoryId,query.CurrencyName);
             return Ok(result);
             
         }

@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace MyShop.Models
+namespace MyShop.Entities
 {
     public class ShopItem
     {
@@ -8,10 +8,10 @@ namespace MyShop.Models
         public required string Name { get; set; }
         public required string Text { get; set; }
         public required decimal PriceUSD { get; set; }
-        public required int Quantity { get; set; } 
+        public required int Quantity { get; set; }
 
         public required int CategoryId { get; set; }
-        public required ItemCategory Category { get; set; }
-        
+        public ItemCategory? Category { get; set; }
+
     }
 }
