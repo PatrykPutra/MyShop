@@ -10,7 +10,7 @@
         public OrderStatus? Status { get; set; }
         public required int StatusId { get; set; }
 
-        public required User User { get; set; }
+        public required User User { get; set; } // Rozważ czy nie chcesz używać virtual aby mieć lazy loading proxy
         public int UserId { get; set; }
     }
 }

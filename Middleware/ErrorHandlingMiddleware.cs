@@ -10,7 +10,7 @@ namespace MyShop.Middleware
         {
             _logger = logger;
         }
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next) // Spoko global error handling
         {
             try
             {

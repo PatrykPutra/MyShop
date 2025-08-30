@@ -9,7 +9,7 @@ using System.Security.Authentication;
 
 namespace MyShop.Services
 {
-    public interface IShopItemServices
+    public interface IShopItemServices // Interfejs powinien być w oddzielnym pliku
     {
         Task<int> CreateAsync(CreateShopItemDto newItemDto);
         Task DeleteAsync(int id);
@@ -99,7 +99,7 @@ namespace MyShop.Services
 
             await _dbContext.SaveChangesAsync();
             
-        }
+        } // popracuj nad formatownaiem. Czasem masz odstęp pomiędzy metodami, czasem nie. Generalnie powinno być
         public async Task DeleteAsync(int id)
         {
             int userId = _userContextService.GetUserId();
@@ -110,7 +110,7 @@ namespace MyShop.Services
             _logger.LogInformation($"Shop item No: {shopItem.Id} {shopItem.Name} deleted by user {userId}");
 
             _dbContext.ShopItems.Remove(shopItem);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(); // To jest jak najbardziej ok na teraz. Ale pomyśl o używaniu Unit of work pattern któe automatycznie będzie wywoływać zapis 
         }
     }
 }

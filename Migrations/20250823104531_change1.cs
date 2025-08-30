@@ -5,7 +5,7 @@
 namespace MyShop.Migrations
 {
     /// <inheritdoc />
-    public partial class change1 : Migration
+    public partial class change1 : Migration // Wypadałoby mieć bardziej znaczące nazwy migracji niż change1. Mogłoby być AddQuantityField
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

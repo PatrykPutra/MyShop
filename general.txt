@@ -1,0 +1,3 @@
+﻿Spoko użycie loggera wszędzie
+Dobrze zrobione uwierzytelnianie i autoryzacja
+Używaj pliku gitignore aby nie wrzucać folderów .vs, obj itp
