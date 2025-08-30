@@ -43,7 +43,7 @@ namespace MyShop.Controllers
         {
             
             var result = await _services.CreateAsync(newItemCategoryDto);
-            return Created($"api/ItemCategory/{result}",null);
+            return Created($"api/ItemCategory/{result}",null); // To jest bardzo ok ale szczerze powiedziawszy Created jest bardzo rzadko używane. Najczęsciej zwraca się puste Ok();
         }
 
         [HttpPut("{id}")]
