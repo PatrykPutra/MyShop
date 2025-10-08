@@ -12,6 +12,7 @@ namespace MyShop.Data
         public DbSet<ExchangeRate> ExchangeRates { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
        
         public MyShopDbContext(DbContextOptions<MyShopDbContext> options) : base(options)
@@ -43,14 +44,14 @@ namespace MyShop.Data
                 entityBuilder.Property(exchangeRate => exchangeRate.Updated).HasColumnType("date"));
 
             modelBuilder.Entity<User>()
-                .HasOne(user => user.Cart)
-                .WithOne(shoppingCart => shoppingCart.User)
-                .HasForeignKey<ShoppingCart>(shoppingCart => shoppingCart.UserId);
-
-            modelBuilder.Entity<User>()
                 .HasMany(user => user.Orders)
                 .WithOne(order => order.User)
                 .HasForeignKey(order => order.UserId);
+            
+            modelBuilder.Entity<User>()
+                .HasOne(user => user.Cart)
+                .WithOne(shoppingCart => shoppingCart.User)
+                .HasForeignKey<ShoppingCart>(shoppingCart => shoppingCart.UserId);
 
             modelBuilder.Entity<User>(entityBuilder =>
             {
@@ -62,7 +63,12 @@ namespace MyShop.Data
                 .HasOne(order => order.Status)
                 .WithMany(orderStatus => orderStatus.Orders)
                 .HasForeignKey(order => order.StatusId);
-        
+
+            modelBuilder.Entity<ShoppingCart>()
+                .HasMany(shoppingCart => shoppingCart.ShoppingCartItems)
+                .WithOne(shoppingCartItem => shoppingCartItem.ShoppingCart)
+                .HasForeignKey(shoppingCartItem => shoppingCartItem.ShoppingCartId);
+            
 
         }
 

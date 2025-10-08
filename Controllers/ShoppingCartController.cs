@@ -31,7 +31,7 @@ namespace MyShop.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery]string? currencyName)
         {
-            var result = await _shoppingCartServices.GetAsync(currencyName);
+            var result = await _shoppingCartServices.GetAsync(currencyName!);
             return Ok(result);
         }
         [HttpPut("RemoveItem")]
@@ -41,6 +41,12 @@ namespace MyShop.Controllers
             await _shoppingCartServices.RemoveItemAsync(shoppingCartItemDto);
             return Ok();
             
+        }
+        [HttpPut("UpdateItem")]
+        public async Task<IActionResult> UpdateItemAsync([FromBody] ShoppingCartItemDto shoppingCartItemDto)
+        {
+            await _shoppingCartServices.UpdateItemAsync(shoppingCartItemDto);
+            return Ok();
         }
 
     }

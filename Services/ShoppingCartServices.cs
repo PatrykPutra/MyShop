@@ -2,17 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
 using MyShop.Entities;
+using MyShop.Exceptions;
 using MyShop.Models;
 using System.Security.Authentication;
 
 namespace MyShop.Services
 {
-    public interface IShoppingCartServices
-    {
-        Task AddItemAsync(ShoppingCartItemDto shoppingCartItemDto);
-        Task<ShoppingCartDto> GetAsync(string currencyName);
-        Task RemoveItemAsync(ShoppingCartItemDto shoppingCartItemDto);
-    }
     public class ShoppingCartServices : IShoppingCartServices
     {
         private readonly MyShopDbContext _dbContext;
@@ -34,7 +29,22 @@ namespace MyShop.Services
         {
             int userId = _userContextService.GetUserId();
             User user = await _userServices.GetAsync(userId);
-            for (int i = 0; i < shoppingCartItemDto.Quantity; i++) user.Cart.ShopItemsIds.Add(shoppingCartItemDto.ItemId);
+            
+            if (!_dbContext.ShopItems.Any(shopItem => shopItem.Id == shoppingCartItemDto.ItemId)) 
+                throw new NotFoundException($"Could not find shop item No. {shoppingCartItemDto.ItemId}");
+            if (shoppingCartItemDto.Quantity <= 0) throw new ArgumentException("Invalid shopping cart item quantity requested. Item quantity has to be higher than zero.");
+
+            var shoppingCartItems = _dbContext.ShoppingCartItems.Where(cartItem => cartItem.ShoppingCartId == user.Cart.Id);
+
+            if (shoppingCartItems.Any(cartItem => cartItem.ItemId == shoppingCartItemDto.ItemId))
+            {
+                var shoppingCartItem = shoppingCartItems.First(cartItem => cartItem.ItemId == shoppingCartItemDto.ItemId);
+                shoppingCartItem.Quantity += shoppingCartItemDto.Quantity;
+            }
+            else
+            {
+                user.Cart.ShoppingCartItems.Add(_mapper.Map<ShoppingCartItem>(shoppingCartItemDto));
+            }
             await _dbContext.SaveChangesAsync();
         }
         public async Task<ShoppingCartDto> GetAsync(string? currencyName)
@@ -45,28 +55,21 @@ namespace MyShop.Services
             decimal exchangeRate = currencyName == null? 1.00M : await _exchangeRatesServices.GetExchangeRateAsync(currencyName);
             if (currencyName == null) currencyName = "USD";
 
-            var itemIds = user.Cart.ShopItemsIds;
+            var shoppingCartItems = await _dbContext.ShoppingCartItems.Where(cartItem => cartItem.ShoppingCartId == user.Cart.Id).ToListAsync();
             var shopItemDtos = new List<ShopItemDto>();
-            foreach (var itemId in itemIds)
+            foreach (var cartItem in shoppingCartItems)
             {
-                var shopItem = await _dbContext.ShopItems.FindAsync(itemId);
+                var shopItem = await _dbContext.ShopItems.FindAsync(cartItem.ItemId);
                 var shopItemDto = _mapper.Map<ShopItemDto>(shopItem);
-                shopItemDto.Quantity = 1;
+                shopItemDto.Quantity = cartItem.Quantity;
                 shopItemDto.Price = shopItemDto.Price* exchangeRate;
                 shopItemDto.PriceCurrency = currencyName;
 
-                if(shopItemDtos.Any(shopItemDto=>shopItemDto.Id == itemId))
-                {
-                    var item = shopItemDtos.First(shopItemDto=>shopItemDto.Id==itemId);
-                    item.Price += shopItemDto.Price;
-                    item.Quantity++;
-                }
-                    
-                else shopItemDtos.Add(shopItemDto);
+                shopItemDtos.Add(shopItemDto);
             }
             var shoppingCartDto = new ShoppingCartDto()
             {
-                Id = user.CartId,
+                Id = user.Cart.Id,
                 ShopItems = shopItemDtos,
             };
             return shoppingCartDto; 
@@ -76,9 +79,28 @@ namespace MyShop.Services
         {
             int userId = _userContextService.GetUserId();
             User user = await _userServices.GetAsync(userId);
-            for (int i = 0; i < shoppingCartItemDto.Quantity; i++) user.Cart.ShopItemsIds.Remove(shoppingCartItemDto.ItemId);
+
+            var shoppingCartItem = await _dbContext.ShoppingCartItems
+                .FirstOrDefaultAsync(cartItem => cartItem.ShoppingCartId == user.Cart.Id && cartItem.ItemId == shoppingCartItemDto.ItemId);
+            if (shoppingCartItem == null) throw new NotFoundException("Could not find shopping cart item.");
+
+            var shoppingCart = await _dbContext.ShoppingCarts.FirstOrDefaultAsync(shoppingCart => shoppingCart.UserId == user.Id);
+            if (shoppingCart == null) throw new NotFoundException("Could not find shopping cart");
+
+            shoppingCart.ShoppingCartItems.Remove(shoppingCartItem);
             await _dbContext.SaveChangesAsync();
         }   
+
+        public async Task UpdateItemAsync(ShoppingCartItemDto shoppingCartItemDto)
+        {
+            int userId = _userContextService.GetUserId();
+            User user = await _userServices.GetAsync(userId);
+            var updatedCartItem = user.Cart.ShoppingCartItems.Find(shoppingCartItem => shoppingCartItem.ItemId == shoppingCartItemDto.ItemId);
+            if (updatedCartItem == null) throw new NotFoundException($"Can't find shop item no. {shoppingCartItemDto.ItemId}");
+            if (shoppingCartItemDto.Quantity <= 0) throw new ArgumentException("Invalid shopping cart item quantity requested. Updated quantity has to be higher than zero.");
+            updatedCartItem.Quantity = shoppingCartItemDto.Quantity;
+            await _dbContext.SaveChangesAsync();
+        }
    
     }
 }

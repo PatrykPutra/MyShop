@@ -163,10 +163,6 @@ namespace MyShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.PrimitiveCollection<string>("ShopItemsIds")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -178,6 +174,28 @@ namespace MyShop.Migrations
                     b.ToTable("ShoppingCarts");
                 });
 
+            modelBuilder.Entity("MyShop.Entities.ShoppingCartItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShoppingCartId");
+
+                    b.ToTable("ShoppingCartItems");
+                });
+
             modelBuilder.Entity("MyShop.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -185,9 +203,6 @@ namespace MyShop.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -281,6 +296,17 @@ namespace MyShop.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("MyShop.Entities.ShoppingCartItem", b =>
+                {
+                    b.HasOne("MyShop.Entities.ShoppingCart", "ShoppingCart")
+                        .WithMany("ShoppingCartItems")
+                        .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ShoppingCart");
+                });
+
             modelBuilder.Entity("MyShop.Entities.ItemCategory", b =>
                 {
                     b.Navigation("ShopItems");
@@ -294,6 +320,11 @@ namespace MyShop.Migrations
             modelBuilder.Entity("MyShop.Entities.OrderStatus", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("MyShop.Entities.ShoppingCart", b =>
+                {
+                    b.Navigation("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("MyShop.Entities.User", b =>

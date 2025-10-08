@@ -1,5 +1,6 @@
 ﻿
 using MyShop.Exceptions;
+using System.Text.Json;
 
 namespace MyShop.Middleware
 {
@@ -20,25 +21,36 @@ namespace MyShop.Middleware
             {
                 _logger.LogError(ex,ex.Message);
                 context.Response.StatusCode = 404;
-                await context.Response.WriteAsync(ex.Message);
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new { error = ex.Message }));
             }
             catch (UnauthorizedRequestException ex)
             {
                 _logger.LogError(ex, ex.Message);
                 context.Response.StatusCode = 401;
-                await context.Response.WriteAsync(ex.Message);
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new { error = ex.Message }));
+            }
+            catch (InvalidCredentialsException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                context.Response.StatusCode = 401;
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new { error = ex.Message }));
             }
             catch (ArgumentException ex)
             {
                 _logger.LogError(ex, ex.Message);
                 context.Response.StatusCode = 400;
-                await context.Response.WriteAsync(ex.Message);
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new { error = ex.Message }));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
                 context.Response.StatusCode = 500;
-                await context.Response.WriteAsync("Something went wrong");
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new { error = "Something went wrong" }));
             }
         }
     }

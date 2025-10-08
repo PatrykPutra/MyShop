@@ -12,10 +12,12 @@ namespace MyShop.Controllers
     {
         private IUserServices _userServices;
         private ILoginServices _loginServices;
-        public SignInController(IUserServices userServices, ILoginServices loginServices)
+        private ILogoutServices _logoutServices;
+        public SignInController(IUserServices userServices, ILoginServices loginServices, ILogoutServices logoutServices)
         {
             _userServices = userServices;
             _loginServices = loginServices;
+            _logoutServices = logoutServices;
         }
 
         [HttpPost("NewUser")]
@@ -23,16 +25,22 @@ namespace MyShop.Controllers
         {
            
             await _userServices.CreateAsync(userDto);
-            return Ok("New user has been registered.");
-            
+            return Ok("New user has been registered.");  
         }
 
         [HttpPost("User")]
-        public IActionResult Login([FromBody] CredentialsDto credentials)
+        public async Task<IActionResult> Login([FromBody] CredentialsDto credentials)
         {
-            string responce = _loginServices.GenerateJwt(credentials);
-            return Ok(responce);
+            string token = await _loginServices.GenerateJwt(credentials);
+            return Ok(new TokenDto(token));
     
+        }
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            string token = await _logoutServices.GenerateJwt();
+            return Ok(new TokenDto(token));
+
         }
     }
 }

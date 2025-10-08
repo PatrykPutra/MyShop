@@ -12,7 +12,7 @@ using MyShop.Data;
 namespace MyShop.Migrations
 {
     [DbContext(typeof(MyShopDbContext))]
-    [Migration("20250815070900_Init")]
+    [Migration("20250927120034_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -25,30 +25,7 @@ namespace MyShop.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MyShop.Models.ExchangeRate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,6");
-
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("date");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ExchangeRates");
-                });
-
-            modelBuilder.Entity("MyShop.Models.ItemCategory", b =>
+            modelBuilder.Entity("MyShop.Entities.ItemCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +49,7 @@ namespace MyShop.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MyShop.Models.Order", b =>
+            modelBuilder.Entity("MyShop.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,6 +60,9 @@ namespace MyShop.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("date");
 
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("TotalPriceUSD")
                         .HasColumnType("decimal(7,2)");
 
@@ -91,12 +71,14 @@ namespace MyShop.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("StatusId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("MyShop.Models.OrderItem", b =>
+            modelBuilder.Entity("MyShop.Entities.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,6 +96,9 @@ namespace MyShop.Migrations
                     b.Property<decimal>("PriceUSD")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.Property<int>("ShopItemId")
                         .HasColumnType("int");
 
@@ -124,7 +109,24 @@ namespace MyShop.Migrations
                     b.ToTable("OrderItem");
                 });
 
-            modelBuilder.Entity("MyShop.Models.ShopItem", b =>
+            modelBuilder.Entity("MyShop.Entities.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderStatuses");
+                });
+
+            modelBuilder.Entity("MyShop.Entities.ShopItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -156,17 +158,13 @@ namespace MyShop.Migrations
                     b.ToTable("ShopItems");
                 });
 
-            modelBuilder.Entity("MyShop.Models.ShoppingCart", b =>
+            modelBuilder.Entity("MyShop.Entities.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.PrimitiveCollection<string>("ShopItemsIds")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -179,16 +177,35 @@ namespace MyShop.Migrations
                     b.ToTable("ShoppingCarts");
                 });
 
-            modelBuilder.Entity("MyShop.Models.User", b =>
+            modelBuilder.Entity("MyShop.Entities.ShoppingCartItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShoppingCartId");
+
+                    b.ToTable("ShoppingCartItems");
+                });
+
+            modelBuilder.Entity("MyShop.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -211,27 +228,58 @@ namespace MyShop.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MyShop.Models.Order", b =>
+            modelBuilder.Entity("MyShop.Models.ExchangeRate", b =>
                 {
-                    b.HasOne("MyShop.Models.User", "User")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(18,6");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("date");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExchangeRates");
+                });
+
+            modelBuilder.Entity("MyShop.Entities.Order", b =>
+                {
+                    b.HasOne("MyShop.Entities.OrderStatus", "Status")
+                        .WithMany("Orders")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyShop.Entities.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Status");
+
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyShop.Models.OrderItem", b =>
+            modelBuilder.Entity("MyShop.Entities.OrderItem", b =>
                 {
-                    b.HasOne("MyShop.Models.Order", null)
+                    b.HasOne("MyShop.Entities.Order", null)
                         .WithMany("Items")
                         .HasForeignKey("OrderId");
                 });
 
-            modelBuilder.Entity("MyShop.Models.ShopItem", b =>
+            modelBuilder.Entity("MyShop.Entities.ShopItem", b =>
                 {
-                    b.HasOne("MyShop.Models.ItemCategory", "Category")
+                    b.HasOne("MyShop.Entities.ItemCategory", "Category")
                         .WithMany("ShopItems")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -240,28 +288,49 @@ namespace MyShop.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("MyShop.Models.ShoppingCart", b =>
+            modelBuilder.Entity("MyShop.Entities.ShoppingCart", b =>
                 {
-                    b.HasOne("MyShop.Models.User", "User")
+                    b.HasOne("MyShop.Entities.User", "User")
                         .WithOne("Cart")
-                        .HasForeignKey("MyShop.Models.ShoppingCart", "UserId")
+                        .HasForeignKey("MyShop.Entities.ShoppingCart", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyShop.Models.ItemCategory", b =>
+            modelBuilder.Entity("MyShop.Entities.ShoppingCartItem", b =>
+                {
+                    b.HasOne("MyShop.Entities.ShoppingCart", "ShoppingCart")
+                        .WithMany("ShoppingCartItems")
+                        .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ShoppingCart");
+                });
+
+            modelBuilder.Entity("MyShop.Entities.ItemCategory", b =>
                 {
                     b.Navigation("ShopItems");
                 });
 
-            modelBuilder.Entity("MyShop.Models.Order", b =>
+            modelBuilder.Entity("MyShop.Entities.Order", b =>
                 {
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("MyShop.Models.User", b =>
+            modelBuilder.Entity("MyShop.Entities.OrderStatus", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("MyShop.Entities.ShoppingCart", b =>
+                {
+                    b.Navigation("ShoppingCartItems");
+                });
+
+            modelBuilder.Entity("MyShop.Entities.User", b =>
                 {
                     b.Navigation("Cart")
                         .IsRequired();

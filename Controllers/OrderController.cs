@@ -24,10 +24,10 @@ namespace MyShop.Controllers
             return Ok(); 
         }
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] string currencyName)
         {
-            var result = await _services.GetAsync();
-            return Ok(result);
+            var result = await _services.GetAsync(currencyName);
+            return Ok(new { Orders = result });
         }
     }
 }

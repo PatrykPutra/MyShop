@@ -7,15 +7,10 @@ using MyShop.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using static MyShop.AuthentitactionSettings;
+
 
 namespace MyShop.Services
 {
-    public interface ILoginServices
-    {
-        string GenerateJwt(CredentialsDto credentials);
-        
-    }
 
     public class LoginServices : ILoginServices
     {
@@ -30,12 +25,12 @@ namespace MyShop.Services
             _authenticationSettings = authenticationSettings;
         }
         
-        public string GenerateJwt(CredentialsDto credentials)
+        public Task<string> GenerateJwt(CredentialsDto credentials)
         {
             User? user = _dbContext.Users.FirstOrDefault(user => user.UserName == credentials.Username);
-            if (user == null) throw new ArgumentException("Login or password not correct.");
+            if (user == null) throw new InvalidCredentialsException("Login or password not correct.");
             if (_passwordHasher.VerifyHashedPassword(user, user.PasswordHash, credentials.Password) == PasswordVerificationResult.Failed) 
-                throw new ArgumentException("Login or password not correct.");
+                throw new InvalidCredentialsException("Login or password not correct.");
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -54,7 +49,7 @@ namespace MyShop.Services
                 signingCredentials:signingCredentials);
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            return tokenHandler.WriteToken(token);
+            return Task.FromResult(tokenHandler.WriteToken(token));
         }
         
     }

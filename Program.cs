@@ -8,7 +8,6 @@ using MyShop.Services;
 using MyShop.Client;
 using Microsoft.AspNetCore.Identity;
 using MyShop.Middleware;
-using static MyShop.AuthentitactionSettings;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
@@ -71,6 +70,7 @@ builder.Services.AddAuthentication(option =>
     config.SaveToken = true;
     config.TokenValidationParameters = new TokenValidationParameters
     {
+        ValidateLifetime = true,
         ValidIssuer = authentitactionSettings.JwtIssuer,
         ValidAudience = authentitactionSettings.JwtIssuer,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authentitactionSettings.JwtKey)),
@@ -94,21 +94,41 @@ builder.Services.AddScoped<ICurrencyExchangeRatesClient, CurrencyExchangeRatesCl
 builder.Services.AddScoped<IShoppingCartServices, ShoppingCartServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<ILoginServices, LoginServices>();
+builder.Services.AddScoped<ILogoutServices, LogoutServices>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IUserContextService, UserContextService>();
 builder.Services.AddScoped<MyShopSeeder>();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient("exchangeRates",httpClient =>
+{
+    var exchangeRatesConnectionString = builder.Configuration.GetConnectionString("ExchangeRatesConnectionString");
+    if (exchangeRatesConnectionString == null) throw new ArgumentNullException(nameof(exchangeRatesConnectionString));
+    httpClient.BaseAddress = new Uri(exchangeRatesConnectionString);
+    httpClient.Timeout = TimeSpan.FromSeconds(30);
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontEndClient", configuration =>
+    {
+        configuration.AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowAnyOrigin();
+        //.WithOrigins("http://localhost:5500");
+    });
+});
 
 
 var app = builder.Build();
+
 
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<MyShopSeeder>(); 
 seeder.Seed();
 
-app.MapControllers();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -116,10 +136,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseCors("FrontEndClient");
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapControllers();
 
 app.Run();
 

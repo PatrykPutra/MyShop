@@ -289,7 +289,7 @@ namespace MyShop
             var regularUser = new User()
             {
                 UserName = "User",
-                IsAdmin = true,
+                IsAdmin = false,
                 Email = "user@mail.com",
                 Cart = new ShoppingCart(),
             };

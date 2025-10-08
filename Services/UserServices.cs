@@ -8,11 +8,6 @@ using System.Security.Authentication;
 
 namespace MyShop.Services
 {
-    public interface IUserServices
-    {
-        Task CreateAsync(CreateUserDto userDto);
-        Task<User> GetAsync(int userId);
-    }
     public class UserServices : IUserServices
     {
         private readonly MyShopDbContext _dbContext;
@@ -38,7 +33,6 @@ namespace MyShop.Services
                 IsAdmin = userDto.IsAdmin,
                 Email = userDto.Email,
                 Cart = newCart,
-                CartId = newCart.Id,
             };
             newUser.PasswordHash = _passwordHasher.HashPassword(newUser, userDto.Password);
             _dbContext.Users.Add(newUser);
@@ -48,6 +42,7 @@ namespace MyShop.Services
         {
             User? user = await _dbContext.Users
                .Include(user => user.Cart)
+               .Include(user => user.Cart.ShoppingCartItems)
                .FirstOrDefaultAsync(user => user.Id == userId);
             if (user == null) throw new NotFoundException("User not found.");
 

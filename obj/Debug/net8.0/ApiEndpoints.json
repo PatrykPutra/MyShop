@@ -95,7 +95,13 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "currencyName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -242,6 +248,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "MyShop.Controllers.ShoppingCartController",
+    "Method": "UpdateItemAsync",
+    "RelativePath": "api/ShoppingCart/UpdateItem",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shoppingCartItemDto",
+        "Type": "MyShop.Models.ShoppingCartItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyShop.Controllers.SignInController",
+    "Method": "Logout",
+    "RelativePath": "api/SignIn/Logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MyShop.Controllers.SignInController",
     "Method": "RegisterAsync",
     "RelativePath": "api/SignIn/NewUser",
@@ -277,6 +309,16 @@
     "ContainingType": "MyShop.Controllers.SummaryController",
     "Method": "GetSummary",
     "RelativePath": "api/Summary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyShop.Controllers.UserInfoController",
+    "Method": "GetUserInfoAsync",
+    "RelativePath": "api/UserInfo",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

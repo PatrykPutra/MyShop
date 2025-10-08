@@ -7,10 +7,6 @@ using MyShop.Models;
 
 namespace MyShop.Services
 {
-    public interface IExchangeRatesServices
-    {
-        Task<decimal> GetExchangeRateAsync(string currencyName);
-    }
     public class ExchangeRatesServices : IExchangeRatesServices
     {
         private readonly MyShopDbContext _dbContext;
@@ -25,29 +21,28 @@ namespace MyShop.Services
         {
             var exchangeRates = await _exchangeRatesClient.GetExchangeRatesAsync();
 
-            var exchangeRatesKeys = exchangeRates.Keys;
-
-            foreach (var key in exchangeRatesKeys)
+            foreach (var rate in exchangeRates)
             {
-                ExchangeRate? exchangeRate =  _dbContext.ExchangeRates.FirstOrDefault(exchangeRate => exchangeRate.Name == key);
+                ExchangeRate? exchangeRate = _dbContext.ExchangeRates.FirstOrDefault(exchangeRate => exchangeRate.Name == rate.CurrencyCode);
                 if (exchangeRate == null)
                 {
                     exchangeRate = new ExchangeRate()
                     {
-                        Name = key,
-                        Rate = exchangeRates[key],
+                        Name = rate.CurrencyCode,
+                        Rate = rate.Rate,
                         Updated = DateTime.Today
                     };
                     _dbContext.ExchangeRates.Add(exchangeRate);
                 }
                 else
                 {
-                    exchangeRate.Rate = exchangeRates[key];
+                    exchangeRate.Rate = rate.Rate;
                     exchangeRate.Updated = DateTime.Today;
                 }
             }
             _dbContext.SaveChanges();
         }
+
         public async Task<decimal> GetExchangeRateAsync(string currencyName)
         {
             if (!_dbContext.ExchangeRates.Any()) await UpdateExchangeRatesAsync();

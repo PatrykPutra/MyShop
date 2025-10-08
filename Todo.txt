@@ -1,0 +1,2 @@
+﻿Dodać model validation do pozostałych Dto
+Endpoint do zwracania danych użytkownika na podstawie tokenu(username, role, email)

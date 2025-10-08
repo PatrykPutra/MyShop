@@ -9,14 +9,6 @@ using System.Security.Authentication;
 
 namespace MyShop.Services
 {
-    public interface IShopItemServices // Interfejs powinien być w oddzielnym pliku
-    {
-        Task<int> CreateAsync(CreateShopItemDto newItemDto);
-        Task DeleteAsync(int id);
-        Task<ShopItemDto> GetByIdAsync(int id, string currencyName);
-        Task<List<ShopItemDto>> GetAllAsync(int? categoryId, string? currencyName);
-        Task UpdateAsync(int id, CreateShopItemDto updatedShopItem);
-    }
     public class ShopItemServices : IShopItemServices
     {
         private readonly MyShopDbContext _dbContext;
@@ -70,12 +62,10 @@ namespace MyShop.Services
             List<ShopItemDto> shopItemsDtos = shopItems.Select(shopItem => _mapper.Map<ShopItemDto>(shopItem)).ToList();
             foreach (var item in shopItemsDtos)
             {
-                item.Price *= exchangeRate;
+                item.Price = Decimal.Round(item.Price*exchangeRate,2,MidpointRounding.AwayFromZero);
                 item.PriceCurrency = currencyName;
             }
-                
             return shopItemsDtos;
-
         }
   
         public async Task UpdateAsync(int id, CreateShopItemDto updatedShopItem)
@@ -99,7 +89,8 @@ namespace MyShop.Services
 
             await _dbContext.SaveChangesAsync();
             
-        } // popracuj nad formatownaiem. Czasem masz odstęp pomiędzy metodami, czasem nie. Generalnie powinno być
+        } 
+
         public async Task DeleteAsync(int id)
         {
             int userId = _userContextService.GetUserId();

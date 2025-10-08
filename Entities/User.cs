@@ -10,8 +10,6 @@ namespace MyShop.Entities
         public string? PasswordHash { get; set; }
         public required string Email { get; set; }
         public required ShoppingCart Cart { get; set; }
-        public int CartId { get; set; }
-
         public List<Order> Orders { get; set; } = new List<Order>();
 
 

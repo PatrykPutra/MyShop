@@ -12,7 +12,6 @@ namespace MyShop.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class ShopItemController : ControllerBase
     {
         private readonly IShopItemServices _services;
@@ -27,7 +26,7 @@ namespace MyShop.Controllers
         public async Task<IActionResult> AddProduct([FromBody] CreateShopItemDto shopItemDto)
         {
             var result = await _services.CreateAsync(shopItemDto);
-            return Created($"api/ShopItem/{result}",null);
+            return Ok();
    
         }
 

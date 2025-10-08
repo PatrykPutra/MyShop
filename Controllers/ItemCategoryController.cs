@@ -12,7 +12,6 @@ namespace MyShop.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class ItemCategoryController : ControllerBase
     {
         private readonly IItemCategoryServices _services;
@@ -43,7 +42,7 @@ namespace MyShop.Controllers
         {
             
             var result = await _services.CreateAsync(newItemCategoryDto);
-            return Created($"api/ItemCategory/{result}",null); // To jest bardzo ok ale szczerze powiedziawszy Created jest bardzo rzadko używane. Najczęsciej zwraca się puste Ok();
+            return Ok(); 
         }
 
         [HttpPut("{id}")]
